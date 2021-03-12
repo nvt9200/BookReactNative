@@ -1,4 +1,4 @@
-import { images } from '../constants';
+import { images } from '../src/constants';
 import { Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
 

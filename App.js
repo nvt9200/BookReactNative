@@ -3,18 +3,18 @@ import React from 'react';
 import { StatusBar,ImageBackground } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import {Login} from "./screens"
-import Register from './screens/Register'
+import { Login } from "./src/screens"
+import { Register } from './src/screens/'
 import { useFonts } from 'expo-font';
 import { AppLoading } from 'expo';
-import { BookDetail, Category } from "./screens/";
-import { Search } from "./screens/";
-import { Setting } from "./screens/";
-import { ListBook } from "./screens/";
-import { BookChapter } from "./screens/";
-import { ChapterDetail } from "./screens/";
-import { ChapterList } from "./screens/";
-import Tabs from "./navigation/tabs";
+import { BookDetail, Category } from "./src/screens/";
+import { Search } from "./src/screens/";
+import { Setting } from "./src/screens/";
+import { ListBook } from "./src/screens/";
+import { BookChapter } from "./src/screens/";
+import { ChapterDetail } from "./src/screens/";
+import { ChapterList } from "./src/screens/";
+import Tabs from "./src/navigation/tabs";
 
 StatusBar.setHidden(true);
 
@@ -31,12 +31,12 @@ const Stack = createStackNavigator();
 const App = () => {
 
     let [fontsLoaded] = useFonts({
-        'Nabila': require('./assets/fonts/Nabila.ttf'),
-        'Roboto-Black': require('./assets/fonts/Roboto-Black.ttf'),
-        'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
-        'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
-        'TheCircous': require('./assets/fonts/TheCircous.ttf'),
-        'Colus-Regular': require('./assets/fonts/Colus-Regular.ttf'),
+        'Nabila': require('./src/assets/fonts/Nabila.ttf'),
+        'Roboto-Black': require('./src/assets/fonts/Roboto-Black.ttf'),
+        'Roboto-Bold': require('./src/assets/fonts/Roboto-Bold.ttf'),
+        'Roboto-Regular': require('./src/assets/fonts/Roboto-Regular.ttf'),
+        'TheCircous': require('./src/assets/fonts/TheCircous.ttf'),
+        'Colus-Regular': require('./src/assets/fonts/Colus-Regular.ttf'),
     });
     if (!fontsLoaded) {
         return <AppLoading />;
