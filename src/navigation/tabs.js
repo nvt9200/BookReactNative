@@ -12,12 +12,12 @@ import { icons, COLORS } from "../constants";
 const Tab = createBottomTabNavigator();
 
 const tabOptions = {
-    showLabel: false,
-    style: {
-        height: "10%",
-        backgroundColor: COLORS.black
-    }
-}
+	showLabel: false,
+	style: {
+		height: '10%',
+		backgroundColor: '#24202d',
+	},
+};
 
 const Tabs = () => {
     return (

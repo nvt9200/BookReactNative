@@ -49,44 +49,45 @@ const Search = ({navigation}) => {
 
     function renderHeader() {
         return (
-            <View style={{ flex: 1, flexDirection: 'row', paddingHorizontal: SIZES.padding, alignItems: 'center' }}>
-                
-                {/* Points */}
-                <TouchableOpacity
-                    style={{
-                        backgroundColor: 'rgba(255,255,255,0.3)',
-                        width: 60,
-                        height: 60,
-                        paddingLeft: 3,
-                        paddingRight: SIZES.radius,
-                        borderRadius: 40,
-                        marginRight : 15,
-                    }}
-                    onPress={() => { console.log("Point") }}
-                >
-                        <Image
-                            source={{ uri : "http://myebookapp.000webhostapp.com/images/user_images/" + global.userInfo.user_image}}
-                            resizeMode="cover"
-                            style={{
-                                flex: 1,
-                                borderRadius: 5
-                            }}
-                        />                    
-                </TouchableOpacity>
-                
-                <LineDivider />
-                
-                {/* Greetings */}
-                <View style={{ flex: 1 , marginLeft : 15 }}>
-                    <View style={{ marginRight: SIZES.padding }}>
-                        <Text style={{ ...FONTS.h3, color: COLORS.white }}>Hello</Text>
-                        <Text style={{ ...FONTS.h2, color: COLORS.white }}>{global.userInfo.name}</Text>
-                    </View>
-                </View>
+			<View style={{ flex: 1, flexDirection: 'row', paddingHorizontal: SIZES.padding, alignItems: 'center' }}>
+				{/* Points */}
+				<TouchableOpacity
+					style={{
+						backgroundColor: 'rgba(255,255,255,0.3)',
+						width: 60,
+						height: 60,
+						paddingRight: 12,
+						borderRadius: 40,
+						marginRight: 15,
+					}}
+					onPress={() => {
+						navigation.navigate('Profile')
+					}}
+				>
+					<Image
+						source={{
+							uri: 'http://myebookapp.000webhostapp.com/images/user_images/' + global.userInfo.user_image,
+						}}
+						resizeMode="cover"
+						style={{
+							width: 60,
+							height: 60,
+							borderRadius: 40,
+						}}
+					/>
+				</TouchableOpacity>
 
-                
-            </View>
-        )
+				<LineDivider />
+
+				{/* Greetings */}
+				<View style={{ flex: 1, marginLeft: 15 }}>
+					<View style={{ marginRight: SIZES.padding }}>
+						<Text style={{ ...FONTS.h3, color: COLORS.white }}>Hello</Text>
+						<Text style={{ ...FONTS.h2, color: COLORS.white }}>{global.userInfo.name}</Text>
+					</View>
+				</View>
+			</View>
+		);
     }
 
     function searchButton(){

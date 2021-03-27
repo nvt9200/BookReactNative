@@ -1,159 +1,150 @@
-import React from 'react'
-import { 
-    Text, 
-    View , 
-    Image, 
-    SafeAreaView,
-    ScrollView
-} from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import Hr from "react-native-hr-component";
+import React from 'react';
+import { Text, View, Image, SafeAreaView, ScrollView } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import global from '../../constants/global';
+import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
 
-import { COLORS, SIZES, FONTS , icons, images} from '../../constants';
+const Setting = ({ navigation }) => {
+	console.log(global.userInfo);
+	function settingHeader() {
+		return (
+			<View style={{ alignItems: 'center', marginTop: 10 }}>
+				<TouchableOpacity
+					style={{
+						backgroundColor: '#009688',
+						width: 140,
+						height: 140,
+						borderRadius: 100,
+						marginTop: -80,
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
 
+					onPress={() => {
+						navigation.navigate('Profile');
+					}}
+				>
+					<Image
+						source={{
+							uri: 'http://myebookapp.000webhostapp.com/images/user_images/' + global.userInfo.user_image,
+						}}
+						style={{
+							backgroundColor: '#fff',
+							width: 125,
+							height: 125,
+							borderRadius: 100,
+						}}
+					></Image>
+				</TouchableOpacity>
+				<Text style={{ fontSize: 22, color: '#fff', fontWeight: 'bold', padding: 10 }}>
+					{global.userInfo.name}
+				</Text>
+				<Text style={{ fontSize: 14, color: '#fff', textAlign: 'center', padding: 10 }}>Ngày tham gia</Text>
+				<Text style={{ fontSize: 14, color: '#fff' }}>{global.userInfo.dt_register}</Text>
+			</View>
+		);
+	}
 
-const Setting = ({navigation}) => {
+	function settingBody() {
+		return (
+			<View>
+				<TouchableOpacity
+					style={{
+						alignSelf: 'center',
+						flexDirection: 'row',
+						justifyContent: 'center',
+						backgroundColor: '#909090',
+						width: '90%',
+						padding: 18,
+						paddingBottom: 20,
+						borderRadius: 10,
+						shadowOpacity: 80,
+						elevation: 15,
+						marginTop: 15,
+					}}
+				>
+					<Image source={icons.bell} style={{ width: 20, height: 20, tintColor: '#fff' }}></Image>
+					<Text style={{ fontSize: 15, color: '#fff', fontWeight: 'bold', marginLeft: 15 }}>
+						Xây dựng thói quen
+					</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={{
+						alignSelf: 'center',
+						flexDirection: 'row',
+						justifyContent: 'center',
+						backgroundColor: '#909090',
+						width: '90%',
+						padding: 18,
+						paddingBottom: 20,
+						borderRadius: 10,
+						shadowOpacity: 80,
+						elevation: 15,
+						marginTop: 15,
+					}}
+				>
+					<Image source={icons.like} style={{ width: 20, height: 20, tintColor: '#fff' }}></Image>
+					<Text style={{ fontSize: 15, color: '#fff', fontWeight: 'bold', marginLeft: 15 }}>Đánh giá</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={{
+						alignSelf: 'center',
+						flexDirection: 'row',
+						justifyContent: 'center',
+						backgroundColor: '#909090',
+						width: '90%',
+						padding: 18,
+						paddingBottom: 20,
+						borderRadius: 10,
+						shadowOpacity: 80,
+						elevation: 15,
+						marginTop: 15,
+					}}
+				>
+					<Image source={icons.language} style={{ width: 20, height: 20, tintColor: '#fff' }}></Image>
+					<Text style={{ fontSize: 15, color: '#fff', fontWeight: 'bold', marginLeft: 15 }}>Ngôn Ngữ</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={{
+						alignSelf: 'center',
+						flexDirection: 'row',
+						justifyContent: 'center',
+						backgroundColor: '#F96D41',
+						width: '90%',
+						padding: 18,
+						paddingBottom: 20,
+						borderRadius: 10,
+						shadowOpacity: 80,
+						elevation: 15,
+						marginTop: 15,
+						marginBottom: 40,
+					}}
+				>
+					<Image source={icons.logout} style={{ width: 20, height: 20, tintColor: '#fff' }}></Image>
+					<Text style={{ fontSize: 15, color: '#fff', fontWeight: 'bold', marginLeft: 15 }}>Đăng Xuất</Text>
+				</TouchableOpacity>
+			</View>
+		);
+	}
 
-    console.log(global.userInfo);
-    function SettingHeader(){
+    function setting () {
         return (
-            <View style={{ backgroundColor :'#444444',alignItems: 'center',justifyContent: 'center',width: '100%',height: '100%'}}>
-
-                <TouchableOpacity
-                    style={{ 
-                        width : 110,
-                        height: 110,
-                        borderWidth : 1,
-                        borderRadius : 100,
-                        borderColor: '#009688',
-                        color : 'white',
-                        backgroundColor: "'#444444'",
-                        marginTop: 30,
-                    
-                    }}>
-                    <Image 
-                    source={{uri : "http://myebookapp.000webhostapp.com/images/user_images/" + global.userInfo.user_image}}
-                    style={{ 
-                        
-                        width: "100%" ,
-                        height: "100%", 
-                        borderRadius : 100,
-                        borderColor: '#009688',
-                        }}
-                    />
-
-                    
-                    
-                </TouchableOpacity>
-                
-                <View style={{ padding: 10}}>
-                    <Text style={{ ...FONTS.h2, color: COLORS.white }}>{global.userInfo.name}</Text>
-                </View>
-                
-                <View >
-                    <Text style={{ ...FONTS.h5, color: COLORS.white,textAlign: 'center', }}>Ngày tham gia </Text>
-                    <Text style={{ ...FONTS.h5, color: COLORS.white }}>{global.userInfo.dt_register}</Text>
-                </View>
-            </View>
-        
-        )
-        
+			<ScrollView style={{ height: '100%', backgroundColor: COLORS.black }} showsVerticalScrollIndicator={false}>
+				<View style={{ height: 120, backgroundColor: COLORS.black }}></View>
+				<View style={{ height: 8, backgroundColor: '#009688' }}></View>
+				<View style={{ backgroundColor: COLORS.black }}>
+					{settingHeader()}
+					{settingBody()}
+				</View>
+			</ScrollView>
+		);
     }
 
-
-    function settingBody(){
-        return(
-            <View>
-                
-                <TouchableOpacity
-                    style={{  height : 55, flexDirection : 'row',borderRadius: 10, alignItems: 'center', backgroundColor : '#444444'}}
-                    onPress={() => console.log("Build a habit")}
-                >
-                    <Image
-                        source={icons.bell}
-                        resizeMode="contain"
-                        style={{
-                            width: 20,
-                            height: 20,
-                            margin : 20,
-                            tintColor: '#D9D9D9',
-                        }}
-                    />
-                    <Text style={{ color: 'white',fontSize: 16,}}>
-                        Build a habit
-                    </Text>
-                </TouchableOpacity>
-                    
-                <View >
-                    <Hr lineColor = "#fff"/>
-                    
-                </View>
-                <TouchableOpacity
-                    style={{  height : 55, flexDirection : 'row',borderRadius: 10, alignItems: 'center', backgroundColor : '#444444'}}
-                    onPress={() => console.log("Developer favors")}
-                >
-                    <Image
-                        source={icons.like}
-                        resizeMode="contain"
-                        style={{
-                            width: 20,
-                            height: 20,
-                            margin : 20,
-                            tintColor: '#D9D9D9',
-                        }}
-                    />
-                    <Text style={{ color: 'white',fontSize: 16,}}>
-                        Developer favors
-                    </Text>
-                </TouchableOpacity>
-
-                <View >
-                    <Hr lineColor = "#fff"/>
-                    
-                </View>
-
-                <TouchableOpacity
-                    style={{  height : 55, flexDirection : 'row',borderRadius: 10, alignItems: 'center', backgroundColor : '#444444'}}
-                    onPress={() => console.log("Change language and interface")}
-                >
-                    <Image
-                        source={icons.language}
-                        resizeMode="contain"
-                        style={{
-                            width: 20,
-                            height: 20,
-                            margin : 20,
-                            tintColor: '#D9D9D9',
-                        }}
-                    />
-                    <Text style={{ color: 'white',fontSize: 16,}}>
-                        Change language and interface
-                    </Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-
-    return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.black }}>
-            
-            <View style={{ flex: 1,height: '100%', backgroundColor : COLORS.black}}>
-
-                <View style={{ flex: 1}}>
-                    {SettingHeader()}
-                </View>
-                <ScrollView style={{ flex: 1,marginTop: SIZES.radius }}>    
-                    <View style={{ flex: 1}}>
-                        {settingBody()}
-                    </View>
-                </ScrollView>
-            </View>
-        </SafeAreaView>
-        
-        
-    )
-
-}
+	return (
+		<SafeAreaView style={{ flex: 1, backgroundColor: '#009688' }}>
+			<View>{setting()}</View>
+		</SafeAreaView>
+	);
+};
 
 export default Setting;

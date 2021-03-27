@@ -9,7 +9,8 @@ import { useFonts } from 'expo-font';
 import { AppLoading } from 'expo';
 import { BookDetail, Category } from "./src/screens/";
 import { Search } from "./src/screens/";
-import { Setting } from "./src/screens/";
+import { Setting } from './src/screens/';
+import { Profile } from './src/screens/';
 import { ListBook } from "./src/screens/";
 import { BookChapter } from "./src/screens/";
 import { ChapterDetail } from "./src/screens/";
@@ -42,42 +43,40 @@ const App = () => {
         return <AppLoading />;
     } else {
         return (
-            
-            <NavigationContainer theme={theme}>
-                <Stack.Navigator
-                    screenOptions={{
-                        headerShown: false
-                    }}
-                    initialRouteName={'Login'}
-                >
-                    {/* Login Screens */}
-                    <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-                    {/* Register Screens */}
-                    <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
-                    {/* Home Screens */}
-                    <Stack.Screen name="Home" component={Tabs} />
-                    {/* Search Screens */}
-                    <Stack.Screen name="Search" component={Search} options={{ headerShown: false }} />
-                    {/* Setting Screens */}
-                    <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
-                    {/* BookDetail Screens */}
-                    <Stack.Screen name="BookDetail" component={BookDetail} options={{ headerShown: false }} />
-                    {/* ListBook Screens */}
-                    <Stack.Screen name="ListBook" component={ListBook} options={{ headerShown: false }}/>
-                    {/* Category Screens */}
-                    <Stack.Screen name="Category" component={Category} options={{ headerShown: false }}/>
-                    {/* BookChapter Screens */}
-                    <Stack.Screen name="BookChapter" component={BookChapter} options={{ headerShown: false }} />  
-                    {/* ChapterDetail Screens */}
-                    <Stack.Screen name="ChapterDetail" component={ChapterDetail} options={{ headerShown: false }} />
-                    {/* ChapterList Screens */}
-                    <Stack.Screen name="ChapterList" component={ChapterList} options={{ headerShown: false }} />
-                    
-                
-
-                </Stack.Navigator>
-            </NavigationContainer>
-        )
+			<NavigationContainer theme={theme}>
+				<Stack.Navigator
+					screenOptions={{
+						headerShown: false,
+					}}
+					initialRouteName={'Login'}
+				>
+					{/* Login Screens */}
+					<Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+					{/* Register Screens */}
+					<Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+					{/* Home Screens */}
+					<Stack.Screen name="Home" component={Tabs} />
+					{/* Search Screens */}
+					<Stack.Screen name="Search" component={Search} options={{ headerShown: false }} />
+					{/* Setting Screens */}
+					<Stack.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
+					{/* Profile Screens */}
+					<Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+					{/* BookDetail Screens */}
+					<Stack.Screen name="BookDetail" component={BookDetail} options={{ headerShown: false }} />
+					{/* ListBook Screens */}
+					<Stack.Screen name="ListBook" component={ListBook} options={{ headerShown: false }} />
+					{/* Category Screens */}
+					<Stack.Screen name="Category" component={Category} options={{ headerShown: false }} />
+					{/* BookChapter Screens */}
+					<Stack.Screen name="BookChapter" component={BookChapter} options={{ headerShown: false }} />
+					{/* ChapterDetail Screens */}
+					<Stack.Screen name="ChapterDetail" component={ChapterDetail} options={{ headerShown: false }} />
+					{/* ChapterList Screens */}
+					<Stack.Screen name="ChapterList" component={ChapterList} options={{ headerShown: false }} />
+				</Stack.Navigator>
+			</NavigationContainer>
+		);
     }
 }
 

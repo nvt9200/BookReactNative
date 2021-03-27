@@ -18,57 +18,30 @@ export const bookmark_icon = require("../assets/icons/bookmark_icon.png");
 export const bell = require("../assets/icons/bell.png");
 export const language = require("../assets/icons/language.png");
 export const like = require("../assets/icons/like.png");
-
-{/*categories_icon*/}
-export const affection = require("../assets/icons/affection.png");
-export const city_icon = require("../assets/icons/city_icon.png");
-export const Dragon = require("../assets/icons/Dragon.png");
-export const fanciful = require("../assets/icons/fanciful.png");
-export const antique = require("../assets/icons/antique.png");
-export const history = require("../assets/icons/history.png");
-export const fantasy = require("../assets/icons/fantasy.png");
-export const moon = require("../assets/icons/moon.png");
-export const sword = require("../assets/icons/sword.png");
-export const yin_yang = require("../assets/icons/yin-yang.png");
+export const logout = require('../assets/icons/logout.png');
 export const rate = require("../assets/icons/rate.png");
 
-
-
-
-
-
-
 export default {
-    google_icon,
-    facebook_icon,
-    Icon,
-    dashboard_icon,
-    menu_icon,
-    notification_icon,
-    search_icon,
-    read_icon,
-    back_arrow_icon,
-    list_icon,
-    setting_icon,
-    home_icon,
-    affection,
-    city_icon,
-    Dragon,
-    fanciful,
-    antique,
-    history,
-    fantasy,
-    moon,
-    sword,
-    yin_yang,
-    rate,
-    close,
-    text_font,
-    arrow_right,
-    arrow_left,
-    bookmark_icon,
-    bell,
-    language,
-    like,
-
-}
+	google_icon,
+	facebook_icon,
+	Icon,
+	dashboard_icon,
+	menu_icon,
+	notification_icon,
+	search_icon,
+	read_icon,
+	back_arrow_icon,
+	list_icon,
+	setting_icon,
+	home_icon,
+	rate,
+	close,
+	text_font,
+	arrow_right,
+	arrow_left,
+	bookmark_icon,
+	bell,
+	language,
+	like,
+	logout,
+};
