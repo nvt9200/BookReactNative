@@ -20,6 +20,8 @@ export const language = require("../assets/icons/language.png");
 export const like = require("../assets/icons/like.png");
 export const logout = require('../assets/icons/logout.png');
 export const rate = require("../assets/icons/rate.png");
+export const related = require('../assets/icons/related.png');
+export const comment = require('../assets/icons/comment.png');
 
 export default {
 	google_icon,
@@ -44,4 +46,6 @@ export default {
 	language,
 	like,
 	logout,
+	related,
+	comment,
 };

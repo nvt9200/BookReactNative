@@ -15,8 +15,8 @@ const Login = ({navigation}) => {
     const [password, setPassword] = useState('h');
     
 
-    const hamLogin = () => {
-        axios.get('http://myebookapp.000webhostapp.com//user_login_api.php?email='+ username+'&password=' + password)
+    const functionLogin = () => {
+        axios.get('http://myebookapp.000webhostapp.com//user_login_api.php?email='+ username +'&password=' + password)
             .then(
                 function (response) {
                     var id = (response.data.EBOOK_APP)[0].user_id;
@@ -108,7 +108,7 @@ const Login = ({navigation}) => {
 
             <TouchableOpacity
                 style={{ marginLeft: SIZES.base }}
-                onPress={hamLogin}
+                onPress={functionLogin}
             >
                 <View style={{
                     marginHorizontal : 20,

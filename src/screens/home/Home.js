@@ -303,6 +303,7 @@ const Home = ({ navigation }) => {
 				keyExtractor={(item) => item.id}
 				showsVerticalScrollIndicator={false}
 			/>
+			
 		</SafeAreaView>
 	);
 };
