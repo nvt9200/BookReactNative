@@ -22,6 +22,8 @@ export const logout = require('../assets/icons/logout.png');
 export const rate = require("../assets/icons/rate.png");
 export const related = require('../assets/icons/related.png');
 export const comment = require('../assets/icons/comment.png');
+export const logo = require('../assets/icons/logo.jpg');
+export const send = require('../assets/icons/send.png');
 
 export default {
 	google_icon,
@@ -48,4 +50,6 @@ export default {
 	logout,
 	related,
 	comment,
+	logo,
+	send,
 };

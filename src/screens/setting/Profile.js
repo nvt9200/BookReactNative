@@ -10,7 +10,7 @@ const Profile = ({ navigation }) => {
 			<ScrollView style={{ height: '100%', backgroundColor: COLORS.black }} showsVerticalScrollIndicator={false}>
 				<View style={{ height: 120, backgroundColor: COLORS.black }}>
 					<TouchableOpacity
-						style={{ margin : 15, width: 40, height: 40, justifyContent : 'center', alignItems : 'center' }}
+						style={{ margin: 15, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}
 						onPress={() => navigation.goBack()}
 					>
 						<Image
@@ -27,7 +27,7 @@ const Profile = ({ navigation }) => {
 				<View style={{ height: 8, backgroundColor: '#009688' }}></View>
 				<View style={{ backgroundColor: COLORS.black }}>
 					<View>
-						<View style={{ alignItems: 'center', marginTop: 10, marginBottom : 10 }}>
+						<View style={{ alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
 							<TouchableOpacity
 								style={{
 									backgroundColor: '#009688',
@@ -98,6 +98,7 @@ const Profile = ({ navigation }) => {
 									paddingLeft: 15,
 									color: '#fff',
 								}}
+								editable={false}
 								placeholderTextColor="rgb(255, 255, 255)"
 							>
 								{global.userInfo.email}
@@ -245,9 +246,7 @@ const Profile = ({ navigation }) => {
 								marginBottom: 40,
 							}}
 						>
-							<Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>
-								Cập Nhật
-							</Text>
+							<Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>Cập Nhật</Text>
 						</TouchableOpacity>
 					</View>
 				</View>

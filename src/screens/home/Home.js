@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, TouchableOpacity, Image, SafeAreaView, FlatList, ScrollView } from 'react-native';
 import global from '../../constants/global';
 import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
+import { TextInput } from 'react-native';
 
 const LineDivider = () => {
 	return (
@@ -31,7 +32,7 @@ const Home = ({ navigation }) => {
 			.catch(function (err) {
 				console.log(err);
 			});
-	}, []);
+	}, []);	
 
 	function renderHeader() {
 		return (
@@ -43,6 +44,8 @@ const Home = ({ navigation }) => {
 					paddingHorizontal: SIZES.padding,
 					alignItems: 'center',
 					backgroundColor: '#24202d',
+					borderBottomLeftRadius : 20,
+					borderBottomRightRadius : 20
 				}}
 			>
 				{/* Points */}
@@ -69,6 +72,8 @@ const Home = ({ navigation }) => {
 							width: 60,
 							height: 60,
 							borderRadius: 40,
+							borderColor: '#009688',
+							borderWidth: 1,
 						}}
 					/>
 				</TouchableOpacity>
@@ -256,7 +261,7 @@ const Home = ({ navigation }) => {
 		return (
 			<View>
 				<View style={{ paddingHorizontal: SIZES.padding, flexDirection: 'row' }}>
-					<Text style={{ ...FONTS.h2, color: COLORS.white, marginTop : 10 }}>Feature Book</Text>
+					<Text style={{ ...FONTS.h2, color: COLORS.white, marginTop: 10 }}>Feature Book</Text>
 				</View>
 				<View style={{ marginTop: 10, marginBottom: 25 }}>
 					<FlatList
@@ -292,7 +297,7 @@ const Home = ({ navigation }) => {
 
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: COLORS.black }}>
-			<View style={{ height: 110, backgroundColor: 'blue' }}>
+			<View style={{ height: 110 }}>
 				{renderHeader()}
 			</View>
 
@@ -303,7 +308,6 @@ const Home = ({ navigation }) => {
 				keyExtractor={(item) => item.id}
 				showsVerticalScrollIndicator={false}
 			/>
-			
 		</SafeAreaView>
 	);
 };

@@ -61,7 +61,7 @@ const Search = ({navigation}) => {
 						marginRight: 15,
 					}}
 					onPress={() => {
-						navigation.navigate('Profile')
+						navigation.navigate('Profile');
 					}}
 				>
 					<Image
@@ -73,6 +73,8 @@ const Search = ({navigation}) => {
 							width: 60,
 							height: 60,
 							borderRadius: 40,
+							borderColor: '#009688',
+							borderWidth: 1,
 						}}
 					/>
 				</TouchableOpacity>
