@@ -19,14 +19,14 @@ const Setting = ({ navigation }) => {
 						justifyContent: 'center',
 						alignItems: 'center',
 					}}
-
+					activeOpacity={0.7}
 					onPress={() => {
 						navigation.navigate('Profile');
 					}}
 				>
 					<Image
 						source={{
-							uri: 'http://myebookapp.000webhostapp.com/images/user_images/' + global.userInfo.user_image,
+							uri: global.userInfo.user_image,
 						}}
 						style={{
 							backgroundColor: '#fff',

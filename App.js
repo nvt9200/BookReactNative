@@ -6,7 +6,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { Login } from "./src/screens"
 import { Register } from './src/screens/'
 import { useFonts } from 'expo-font';
-import { AppLoading } from 'expo';
+import AppLoading from 'expo-app-loading';
 import { BookDetail, Category } from "./src/screens/";
 import { Search } from "./src/screens/";
 import { Setting } from './src/screens/';

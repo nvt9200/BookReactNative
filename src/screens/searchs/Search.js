@@ -66,7 +66,7 @@ const Search = ({navigation}) => {
 				>
 					<Image
 						source={{
-							uri: 'http://myebookapp.000webhostapp.com/images/user_images/' + global.userInfo.user_image,
+							uri: global.userInfo.user_image,
 						}}
 						resizeMode="cover"
 						style={{

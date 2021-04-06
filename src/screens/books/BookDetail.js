@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, Image, ScrollView, Animated, ToastAndroid, TextInput } from 'react-native';
+import {
+	View,
+	Text,
+	ImageBackground,
+	TouchableOpacity,
+	Image,
+	ScrollView,
+	Animated,
+	ToastAndroid,
+	TextInput,
+	Modal,
+} from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
-import { Modal } from 'react-native';
 import global from '../../constants/global';
 import HTML from 'react-native-render-html';
 
@@ -36,7 +46,6 @@ const BookDetail = ({ route, navigation }) => {
 	const axios = require('axios');
 
 	if (relateInBooks == null || relateInBooks == '' || relateInBooks == undefined) {
-			
 		useEffect(() => {
 			var link1 = 'http://myebookapp.000webhostapp.com//api.php?book_id=' + books.id;
 
@@ -69,6 +78,8 @@ const BookDetail = ({ route, navigation }) => {
 	}
 
 	global.bookId = bookDetail;
+
+	console.log(bookDetail);
 
 	/* 
 	#BFEAB5
@@ -123,6 +134,7 @@ const BookDetail = ({ route, navigation }) => {
 						commentText
 				)
 				.then(function (response) {
+					setCommentText('');
 					var msg = response.data.EBOOK_APP[0].msg;
 					ToastAndroid.show(msg, ToastAndroid.LONG);
 				})
@@ -275,7 +287,6 @@ const BookDetail = ({ route, navigation }) => {
 										}}
 										onPress={toggleModalRelatedBooks}
 									>
-										
 										<Text style={{ flex: 1 / 4 }}> </Text>
 										<Text
 											style={{
@@ -346,7 +357,7 @@ const BookDetail = ({ route, navigation }) => {
 			>
 				<Image
 					source={{
-						uri: 'http://myebookapp.000webhostapp.com/images/user_images/' + item.item.user_image,
+						uri: item.item.user_image,
 					}}
 					style={{
 						width: 60,
@@ -355,7 +366,7 @@ const BookDetail = ({ route, navigation }) => {
 						backgroundColor: 'white',
 						marginRight: 10,
 						borderColor: '#009688',
-						borderWidth : 1
+						borderWidth: 1,
 					}}
 				></Image>
 				<View style={{ backgroundColor: '#9e9e9e', width: 1, height: '100%' }}></View>
@@ -407,7 +418,12 @@ const BookDetail = ({ route, navigation }) => {
 	function modalComment() {
 		return (
 			<View>
-				<Modal animationType="slide" transparent={true} visible={isModalVisibleComment}>
+				<Modal
+					animationType="slide"
+					onBackdropPress={toggleModalComment}
+					transparent={true}
+					visible={isModalVisibleComment}
+				>
 					<View
 						style={{
 							flex: 1,
@@ -550,14 +566,6 @@ const BookDetail = ({ route, navigation }) => {
 								borderRadius: 15,
 								padding: 35,
 								alignItems: 'center',
-								// shadowColor: '#000',
-								// shadowOffset: {
-								// 	width: 0,
-								// 	height: 2,
-								// },
-								// shadowOpacity: 0.25,
-								// shadowRadius: 4,
-								// elevation: 5,
 							}}
 						>
 							<AirbnbRating

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, TouchableOpacity, Image, SafeAreaView, FlatList, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, TouchableOpacity, Image, SafeAreaView, FlatList } from 'react-native';
 import global from '../../constants/global';
 import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
-import { TextInput } from 'react-native';
 
 const LineDivider = () => {
 	return (
@@ -32,7 +31,8 @@ const Home = ({ navigation }) => {
 			.catch(function (err) {
 				console.log(err);
 			});
-	}, []);	
+	}, []); 
+	
 
 	function renderHeader() {
 		return (
@@ -44,14 +44,14 @@ const Home = ({ navigation }) => {
 					paddingHorizontal: SIZES.padding,
 					alignItems: 'center',
 					backgroundColor: '#24202d',
-					borderBottomLeftRadius : 20,
-					borderBottomRightRadius : 20
+					borderBottomLeftRadius: 20,
+					borderBottomRightRadius: 20,
 				}}
 			>
 				{/* Points */}
 				<TouchableOpacity
 					style={{
-						backgroundColor: 'rgba(255,255,255,0.3)',
+						backgroundColor: '#fff',
 						width: 60,
 						height: 60,
 						marginLeft: 10,
@@ -64,7 +64,7 @@ const Home = ({ navigation }) => {
 				>
 					<Image
 						source={{
-							uri: 'http://myebookapp.000webhostapp.com/images/user_images/' + global.userInfo.user_image,
+							uri: global.userInfo.user_image,
 						}}
 						resizeMode="cover"
 						style={{

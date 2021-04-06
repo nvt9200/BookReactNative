@@ -1,14 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import global from '../../constants/global';
 
 import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
 
+const axios = require('axios');
+
 const Profile = ({ navigation }) => {
+	const [image, setImage] = useState(global.userInfo.user_image);
+	const [data, setData] = useState(null);
+
+	const pickImage = async () => {
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.All,
+			allowsEditing: true,
+			aspect: [4, 3],
+			quality: 1,
+		});
+
+		console.log(result);
+
+		if (!result.cancelled) {
+			setImage(result.uri);
+			setData(result);
+		}
+	};
+
+	const uploadPhoto = () => {
+		
+		var link =
+			'http://myebookapp.000webhostapp.com//user_profile_upload_image_api.php?id=' +
+			global.userInfo.user_id +
+			'&user_image=' +
+			data;
+		axios
+			.get(link)
+			.then(function (response) {
+				console.log(response);
+				if (response.EBOOK_APP[0].success == 1) {
+					global.userInfo.user_image = image;
+				}
+			})
+			.catch(function (err) {
+				console.log(err);
+			});
+	};
+
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: '#009688' }}>
 			<ScrollView style={{ height: '100%', backgroundColor: COLORS.black }} showsVerticalScrollIndicator={false}>
-				<View style={{ height: 120, backgroundColor: COLORS.black }}>
+				<View style={{ height: 70, backgroundColor: COLORS.black }}>
 					<TouchableOpacity
 						style={{ margin: 15, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}
 						onPress={() => navigation.goBack()}
@@ -27,41 +69,102 @@ const Profile = ({ navigation }) => {
 				<View style={{ height: 8, backgroundColor: '#009688' }}></View>
 				<View style={{ backgroundColor: COLORS.black }}>
 					<View>
-						<View style={{ alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
-							<TouchableOpacity
+						{/* Update Image */}
+						<View
+							style={{
+								backgroundColor: 'rgba(255, 255, 255,0.1)',
+								borderRadius: 10,
+								margin: 20,
+								flexDirection: 'row',
+								marginTop: 20,
+								marginBottom: 10,
+							}}
+						>
+							{/* Chose Image */}
+							<View
 								style={{
-									backgroundColor: '#009688',
-									width: 140,
-									height: 140,
-									borderRadius: 100,
-									marginTop: -80,
 									justifyContent: 'center',
 									alignItems: 'center',
+									margin: 10,
 								}}
 							>
-								<Image
-									source={{
-										uri:
-											'http://myebookapp.000webhostapp.com/images/user_images/' +
-											global.userInfo.user_image,
-									}}
+								<TouchableOpacity
 									style={{
-										backgroundColor: '#fff',
-										width: 125,
-										height: 125,
+										backgroundColor: '#009688',
+										width: 90,
+										height: 90,
 										borderRadius: 100,
+										justifyContent: 'center',
+										alignItems: 'center',
+										marginBottom: 10,
 									}}
-								></Image>
-							</TouchableOpacity>
-
-							<Text style={{ fontSize: 22, color: '#fff', fontWeight: 'bold', padding: 10 }}>
-								{global.userInfo.name}
-							</Text>
-							<Text style={{ fontSize: 14, color: '#fff', textAlign: 'center', padding: 10 }}>
-								Ngày tham gia
-							</Text>
-							<Text style={{ fontSize: 14, color: '#fff' }}>{global.userInfo.dt_register}</Text>
+									activeOpacity={0.7}
+									onPress={pickImage}
+								>
+									{image && (
+										<Image
+											source={{
+												uri: image,
+											}}
+											style={{
+												backgroundColor: '#fff',
+												width: 80,
+												height: 80,
+												borderRadius: 100,
+											}}
+										/>
+									)}
+								</TouchableOpacity>
+								<TouchableOpacity
+									style={{
+										backgroundColor: '#F96D41',
+										width: 80,
+										height: 40,
+										borderRadius: 10,
+										justifyContent: 'center',
+										alignItems: 'center',
+									}}
+									activeOpacity={0.7}
+									onPress={uploadPhoto()}
+								>
+									<Text
+										style={{
+											fontSize: 14,
+											color: '#fff',
+											fontWeight: 'bold',
+											textAlign: 'center',
+										}}
+									>
+										Cập nhật
+									</Text>
+								</TouchableOpacity>
+							</View>
+							{/* User Information */}
+							<View
+								style={{
+									marginLeft: 10,
+									justifyContent: 'center',
+									backgroundColor: '#fff',
+									width: 1,
+									margin: 20,
+								}}
+							></View>
+							{/* User Information */}
+							<View
+								style={{
+									justifyContent: 'center',
+								}}
+							>
+								<Text style={{ fontSize: 22, color: '#fff', fontWeight: 'bold', marginBottom: 15 }}>
+									{global.userInfo.name}
+								</Text>
+								<Text style={{ fontSize: 14, color: '#fff', marginBottom: 15 }}>Ngày tham gia</Text>
+								<Text style={{ fontSize: 14, color: '#fff', marginBottom: 15 }}>
+									{global.userInfo.dt_register}
+								</Text>
+							</View>
 						</View>
+						{/* change information */}
 						<View
 							style={{
 								flexDirection: 'row',

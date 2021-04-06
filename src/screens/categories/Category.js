@@ -24,6 +24,10 @@ const Category = ({navigation}) => {
         axios.get('http://myebookapp.000webhostapp.com//api.php?cat_list')
             .then((res) => {
                 setCategories(res.data.EBOOK_APP);
+                if(categories[0].cat_image == null || categories[0].cat_image == undefined || categories[0].cat_image == ''){
+                    categories[0].cat_image = 'no_categories.png';
+                }
+                console.log(categories[0].item.cat_image);
             })
             .catch((err) => {
                 console.log(err);
