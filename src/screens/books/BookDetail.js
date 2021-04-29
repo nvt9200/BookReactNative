@@ -10,6 +10,7 @@ import {
 	ToastAndroid,
 	TextInput,
 	Modal,
+	TouchableWithoutFeedback,
 } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
 import global from '../../constants/global';
@@ -257,77 +258,81 @@ const BookDetail = ({ route, navigation }) => {
 							alignItems: 'center',
 						}}
 					>
-						<View
-							style={{
-								width: '90%',
-								height: '75%',
-								borderRadius: 15,
-								alignItems: 'center',
-								backgroundColor: 'rgb(0,0,0)',
-							}}
-						>
+						<TouchableWithoutFeedback onPress={toggleModalRating} style={{ flex: 1, width: '100%' }}>
 							<View
 								style={{
-									height: '100%',
-									width: '100%',
-									flexDirection: 'row',
+									width: '90%',
+									height: '75%',
 									borderRadius: 15,
+									alignItems: 'center',
+									backgroundColor: 'rgb(0,0,0)',
 								}}
 							>
-								<View style={{ flex: 1 }}>
-									<TouchableOpacity
-										style={{
-											flex: 1.5 / 10,
-											flexDirection: 'row',
-											justifyContent: 'space-between',
-											alignItems: 'center',
-											borderTopRightRadius: 15,
-											borderTopLeftRadius: 15,
-											backgroundColor: 'rgba(61, 61, 61,0.6)',
-										}}
-										onPress={toggleModalRelatedBooks}
-									>
-										<Text style={{ flex: 1 / 4 }}> </Text>
-										<Text
-											style={{
-												flex: 3 / 4,
-												color: '#fff',
-												fontWeight: 'bold',
-												fontSize: 22,
-												textAlign: 'center',
-											}}
-										>
-											Related Books
-										</Text>
+								<View
+									style={{
+										height: '100%',
+										width: '100%',
+										flexDirection: 'row',
+										borderRadius: 15,
+									}}
+								>
+									<View style={{ flex: 1 }}>
 										<TouchableOpacity
 											style={{
-												flex: 1 / 4,
+												flex: 1.5 / 10,
+												flexDirection: 'row',
+												justifyContent: 'space-between',
 												alignItems: 'center',
+												borderTopRightRadius: 15,
+												borderTopLeftRadius: 15,
+												backgroundColor: 'rgba(61, 61, 61,0.6)',
 											}}
 											onPress={toggleModalRelatedBooks}
 										>
-											<Image
-												source={icons.close}
+											<Text style={{ flex: 1 / 4 }}> </Text>
+											<Text
 												style={{
-													height: 20,
-													width: 20,
-													tintColor: '#fff',
+													flex: 3 / 4,
+													color: '#fff',
+													fontWeight: 'bold',
+													fontSize: 22,
+													textAlign: 'center',
 												}}
-											></Image>
+											>
+												Related Books
+											</Text>
+											<TouchableOpacity
+												style={{
+													flex: 1 / 4,
+													alignItems: 'center',
+												}}
+												onPress={toggleModalRelatedBooks}
+											>
+												<Image
+													source={icons.close}
+													style={{
+														height: 20,
+														width: 20,
+														tintColor: '#fff',
+													}}
+												></Image>
+											</TouchableOpacity>
 										</TouchableOpacity>
-									</TouchableOpacity>
-									<View style={{ flex: 8 / 10, padding: 10 }}>
-										<FlatList
-											data={relatedBooks}
-											renderItem={(item) => <ItemRelatedBooks item={item} />}
-											keyExtractor={(item) => item.id}
-											showsVerticalScrollIndicator={false}
-										/>
+										<View style={{ flex: 8 / 10, padding: 10 }}>
+											<FlatList
+												data={relatedBooks}
+												renderItem={(item) => <ItemRelatedBooks item={item} />}
+												keyExtractor={(item) => item.id}
+												showsVerticalScrollIndicator={false}
+											/>
+										</View>
+										<View
+											style={{ flex: 0.5 / 10, backgroundColor: 'rgba(61, 61, 61,0.6)' }}
+										></View>
 									</View>
-									<View style={{ flex: 0.5 / 10, backgroundColor: 'rgba(61, 61, 61,0.6)' }}></View>
 								</View>
 							</View>
-						</View>
+						</TouchableWithoutFeedback>
 					</View>
 				</Modal>
 			</View>
@@ -424,118 +429,120 @@ const BookDetail = ({ route, navigation }) => {
 					transparent={true}
 					visible={isModalVisibleComment}
 				>
-					<View
-						style={{
-							flex: 1,
-							justifyContent: 'center',
-							alignItems: 'center',
-						}}
-					>
+					<TouchableWithoutFeedback onPress={toggleModalRating} style={{ flex: 1, width: '100%' }}>
 						<View
 							style={{
-								width: '90%',
-								height: '75%',
-								backgroundColor: 'rgb(0,0,0)',
-								borderRadius: 15,
+								flex: 1,
+								justifyContent: 'center',
 								alignItems: 'center',
 							}}
 						>
 							<View
 								style={{
-									height: '100%',
-									width: '100%',
-									flexDirection: 'row',
+									width: '90%',
+									height: '75%',
+									backgroundColor: 'rgb(0,0,0)',
 									borderRadius: 15,
+									alignItems: 'center',
 								}}
 							>
-								<View style={{ flex: 1 }}>
-									<View
-										style={{
-											flex: 1 / 8,
-											flexDirection: 'row',
-											justifyContent: 'space-between',
-											alignItems: 'center',
-											borderTopRightRadius: 15,
-											borderTopLeftRadius: 15,
-											backgroundColor: 'rgba(61, 61, 61,0.6)',
-										}}
-									>
-										<Text style={{ flex: 1 / 4 }}> </Text>
-										<Text
+								<View
+									style={{
+										height: '100%',
+										width: '100%',
+										flexDirection: 'row',
+										borderRadius: 15,
+									}}
+								>
+									<View style={{ flex: 1 }}>
+										<View
 											style={{
-												flex: 2 / 4,
-												color: '#fff',
-												fontWeight: 'bold',
-												fontSize: 22,
-												textAlign: 'center',
-											}}
-										>
-											Comments
-										</Text>
-										<TouchableOpacity
-											style={{
-												flex: 1 / 4,
+												flex: 1 / 8,
+												flexDirection: 'row',
+												justifyContent: 'space-between',
 												alignItems: 'center',
+												borderTopRightRadius: 15,
+												borderTopLeftRadius: 15,
+												backgroundColor: 'rgba(61, 61, 61,0.6)',
 											}}
-											onPress={toggleModalComment}
 										>
-											<Image
-												source={icons.close}
+											<Text style={{ flex: 1 / 4 }}> </Text>
+											<Text
 												style={{
-													height: 20,
-													width: 20,
-													tintColor: '#fff',
+													flex: 2 / 4,
+													color: '#fff',
+													fontWeight: 'bold',
+													fontSize: 22,
+													textAlign: 'center',
 												}}
-											></Image>
-										</TouchableOpacity>
-									</View>
-									<View style={{ flex: 6 / 8, padding: 10 }}>
-										<FlatList
-											data={bookComment}
-											renderItem={(item) => <UserComment item={item} />}
-											keyExtractor={(item) => item.id}
-											showsVerticalScrollIndicator={false}
-										/>
-									</View>
-									<View
-										style={{
-											flex: 1 / 8,
-											flexDirection: 'row',
-											alignItems: 'center',
-											backgroundColor: 'rgba(61, 61, 61,0.6)',
-											borderBottomRightRadius: 15,
-											borderBottomLeftRadius: 15,
-										}}
-									>
-										<TextInput
+											>
+												Comments
+											</Text>
+											<TouchableOpacity
+												style={{
+													flex: 1 / 4,
+													alignItems: 'center',
+												}}
+												onPress={toggleModalComment}
+											>
+												<Image
+													source={icons.close}
+													style={{
+														height: 20,
+														width: 20,
+														tintColor: '#fff',
+													}}
+												></Image>
+											</TouchableOpacity>
+										</View>
+										<View style={{ flex: 6 / 8, padding: 10 }}>
+											<FlatList
+												data={bookComment}
+												renderItem={(item) => <UserComment item={item} />}
+												keyExtractor={(item) => item.id}
+												showsVerticalScrollIndicator={false}
+											/>
+										</View>
+										<View
 											style={{
-												width: '80%',
-												height: 40,
-												backgroundColor: '#CFD9E0',
-												borderRadius: 50,
-												padding: 10,
-												margin: 10,
-												fontSize: 16,
+												flex: 1 / 8,
+												flexDirection: 'row',
+												alignItems: 'center',
+												backgroundColor: 'rgba(61, 61, 61,0.6)',
+												borderBottomRightRadius: 15,
+												borderBottomLeftRadius: 15,
 											}}
-											placeholder="Leave a comment"
-											onChangeText={(text) => setCommentText(text)}
-											value={commentText}
-										></TextInput>
-										<TouchableOpacity onPress={functionComment}>
-											<Image
-												source={icons.send}
+										>
+											<TextInput
 												style={{
-													height: 35,
-													width: 35,
-													tintColor: '#fff',
+													width: '80%',
+													height: 40,
+													backgroundColor: '#CFD9E0',
+													borderRadius: 50,
+													padding: 10,
+													margin: 10,
+													fontSize: 16,
 												}}
-											></Image>
-										</TouchableOpacity>
+												placeholder="Leave a comment"
+												onChangeText={(text) => setCommentText(text)}
+												value={commentText}
+											></TextInput>
+											<TouchableOpacity onPress={functionComment}>
+												<Image
+													source={icons.send}
+													style={{
+														height: 35,
+														width: 35,
+														tintColor: '#fff',
+													}}
+												></Image>
+											</TouchableOpacity>
+										</View>
 									</View>
 								</View>
 							</View>
 						</View>
-					</View>
+					</TouchableWithoutFeedback>
 				</Modal>
 			</View>
 		);
@@ -552,86 +559,89 @@ const BookDetail = ({ route, navigation }) => {
 						Alert.alert('Modal has been closed.');
 					}}
 				>
-					<View
-						style={{
-							flex: 1,
-							justifyContent: 'center',
-							alignItems: 'center',
-						}}
-					>
+					<TouchableWithoutFeedback onPress={toggleModalRating} style={{ flex: 1, width: '100%' }}>
 						<View
 							style={{
-								margin: 20,
-								backgroundColor: 'rgba(0, 0, 0, 0.9)',
-								borderRadius: 15,
-								padding: 35,
+								flex: 1,
+								justifyContent: 'center',
 								alignItems: 'center',
 							}}
 						>
-							<AirbnbRating
-								count={5}
-								reviews={['Terrible', 'Bad', 'Okay', 'Good', 'Great']}
-								defaultRating={5}
-								size={30}
-								onFinishRating={setValueRating}
-							/>
 							<View
 								style={{
-									height: 45,
-									width: 250,
-									flexDirection: 'row',
-									justifyContent: 'space-between',
+									margin: 20,
+									backgroundColor: 'rgba(0, 0, 0, 0.9)',
+									borderRadius: 15,
+									padding: 35,
 									alignItems: 'center',
-									marginTop: 30,
 								}}
 							>
-								<TouchableOpacity
+								<AirbnbRating
+									count={5}
+									reviews={['Terrible', 'Bad', 'Okay', 'Good', 'Great']}
+									defaultRating={5}
+									size={30}
+									onFinishRating={setValueRating}
+								/>
+
+								<View
 									style={{
-										flex: 1.5 / 4,
 										height: 45,
-										backgroundColor: '#7D7E84',
-										justifyContent: 'center',
+										width: 250,
+										flexDirection: 'row',
+										justifyContent: 'space-between',
 										alignItems: 'center',
-										borderRadius: 15,
-									}}
-									onPress={toggleModalRating}
-								>
-									<Text
-										style={{
-											color: 'white',
-											fontSize: 18,
-											fontWeight: 'bold',
-										}}
-									>
-										Cancel
-									</Text>
-								</TouchableOpacity>
-								<TouchableOpacity
-									style={{
-										flex: 1.5 / 4,
-										height: 45,
-										backgroundColor: '#F96D41',
-										justifyContent: 'center',
-										alignItems: 'center',
-										borderRadius: 15,
-									}}
-									onPress={() => {
-										toggleModalRating(), functionRating();
+										marginTop: 30,
 									}}
 								>
-									<Text
+									<TouchableOpacity
 										style={{
-											color: 'white',
-											fontSize: 18,
-											fontWeight: 'bold',
+											flex: 1.5 / 4,
+											height: 45,
+											backgroundColor: '#7D7E84',
+											justifyContent: 'center',
+											alignItems: 'center',
+											borderRadius: 15,
+										}}
+										onPress={toggleModalRating}
+									>
+										<Text
+											style={{
+												color: 'white',
+												fontSize: 18,
+												fontWeight: 'bold',
+											}}
+										>
+											Cancel
+										</Text>
+									</TouchableOpacity>
+									<TouchableOpacity
+										style={{
+											flex: 1.5 / 4,
+											height: 45,
+											backgroundColor: '#F96D41',
+											justifyContent: 'center',
+											alignItems: 'center',
+											borderRadius: 15,
+										}}
+										onPress={() => {
+											toggleModalRating(), functionRating();
 										}}
 									>
-										Ok
-									</Text>
-								</TouchableOpacity>
+										<Text
+											style={{
+												color: 'white',
+												fontSize: 18,
+												fontWeight: 'bold',
+											}}
+										>
+											Ok
+										</Text>
+									</TouchableOpacity>
+								</View>
 							</View>
 						</View>
-					</View>
+					</TouchableWithoutFeedback>
 				</Modal>
 			</View>
 		);
