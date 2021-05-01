@@ -36,7 +36,6 @@ const Login = ({ navigation }) => {
 									'http://myebookapp.000webhostapp.com/images/user_images/' +
 									global.userInfo.user_image;
 							}
-							console.log(global.userInfo.user_image);
 							navigation.navigate('Home');
 						})
 						.catch(function (error) {

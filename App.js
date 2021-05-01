@@ -1,48 +1,49 @@
-
 import React from 'react';
-import { StatusBar,ImageBackground } from 'react-native';
-import { createStackNavigator } from "@react-navigation/stack";
+import { StatusBar, ImageBackground } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { Login } from "./src/screens"
-import { Register } from './src/screens/'
+import { Login } from './src/screens';
+import { Register } from './src/screens/';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import { BookDetail, Category } from "./src/screens/";
-import { Search } from "./src/screens/";
+import { BookDetail, Category } from './src/screens/';
+import { Search } from './src/screens/';
 import { Setting } from './src/screens/';
 import { Profile } from './src/screens/';
-import { ListBook } from "./src/screens/";
-import { BookChapter } from "./src/screens/";
-import { ChapterDetail } from "./src/screens/";
-import { ChapterList } from "./src/screens/";
-import Tabs from "./src/navigation/tabs";
+import { ListBook } from './src/screens/';
+import { BookChapter } from './src/screens/';
+import { ChapterDetail } from './src/screens/';
+import { ChapterList } from './src/screens/';
+import Tabs from './src/navigation/tabs';
 
 StatusBar.setHidden(true);
 
 const theme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        border: "transparent"
-    }
-}
+	...DefaultTheme,
+	colors: {
+		...DefaultTheme.colors,
+		border: 'transparent',
+	},
+};
 
 const Stack = createStackNavigator();
 
 const App = () => {
-
-    let [fontsLoaded] = useFonts({
-        'Nabila': require('./src/assets/fonts/Nabila.ttf'),
-        'Roboto-Black': require('./src/assets/fonts/Roboto-Black.ttf'),
-        'Roboto-Bold': require('./src/assets/fonts/Roboto-Bold.ttf'),
-        'Roboto-Regular': require('./src/assets/fonts/Roboto-Regular.ttf'),
-        'TheCircous': require('./src/assets/fonts/TheCircous.ttf'),
-        'Colus-Regular': require('./src/assets/fonts/Colus-Regular.ttf'),
-    });
-    if (!fontsLoaded) {
-        return <AppLoading />;
-    } else {
-        return (
+	let [fontsLoaded] = useFonts({
+		'Literata-Regular': require('./src/assets/fonts/Literata-Regular.ttf'),
+		'Roboto-Black': require('./src/assets/fonts/Roboto-Black.ttf'),
+		'Roboto-Bold': require('./src/assets/fonts/Roboto-Bold.ttf'),
+		'Museo-Sans': require('./src/assets/fonts/MuseoSansCyrl.otf'),
+		'Pala-tino': require('./src/assets/fonts/Palatino.ttf'),
+		'Product-Sans': require('./src/assets/fonts/Product-Sans-Regular.ttf'),
+		'Colus-Regular': require('./src/assets/fonts/Colus-Regular.ttf'),
+		'Roboto-Regular': require('./src/assets/fonts/Roboto-Regular.ttf'),
+		'Traveling-Typewriter': require('./src/assets/fonts/TravelingTypewriter.ttf'),
+	});
+	if (!fontsLoaded) {
+		return <AppLoading />;
+	} else {
+		return (
 			<NavigationContainer theme={theme}>
 				<Stack.Navigator
 					screenOptions={{
@@ -77,7 +78,7 @@ const App = () => {
 				</Stack.Navigator>
 			</NavigationContainer>
 		);
-    }
-}
+	}
+};
 
 export default App;

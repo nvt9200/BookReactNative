@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, SafeAreaView, Image, TouchableOpacity, ScrollView, FlatList, Animated } from 'react-native';
+import {
+	Text,
+	View,
+	SafeAreaView,
+	Image,
+	TouchableOpacity,
+	ScrollView,
+	FlatList,
+	Animated,
+	Modal,
+	TouchableWithoutFeedback,
+} from 'react-native';
 
 import { COLORS, SIZES, icons } from '../../constants';
 import HTML from 'react-native-render-html';
@@ -7,9 +18,49 @@ import HTML from 'react-native-render-html';
 const ChapterDetail = ({ route, navigation }) => {
 	const [scrollViewWholeHeight, setScrollViewWholeHeight] = useState(1);
 	const [scrollViewVisibleHeight, setScrollViewVisibleHeight] = useState(0);
+	const [fontText, setFontText] = useState('Roboto-Bold');
+
 	const indicator = new Animated.Value(0);
 	const { readDetail } = route.params;
+
 	const [prev, setPrev] = useState();
+	const [isModalFont, setModalFont] = useState(false);
+
+	const fontData = [
+		{
+			id: 1,
+			name: 'Literata',
+		},
+		{
+			id: 2,
+			name: 'Architecture',
+		},
+		{
+			id: 3,
+			name: 'Palatino',
+		},
+		{
+			id: 4,
+			name: 'Roboto',
+		},
+		{
+			id: 5,
+			name: 'ProductSans',
+		},
+		{
+			id: 6,
+			name: 'Traveling',
+		},
+		{
+			id: 7,
+			name: 'ColusRegular',
+		},
+		{
+			id: 8,
+			name: 'MuseoSansCyrl',
+		},
+	];
+
 	useEffect(() => {
 		if (readDetail.chapter_number < 1.1) {
 			setPrev(true);
@@ -17,6 +68,10 @@ const ChapterDetail = ({ route, navigation }) => {
 			setPrev(false);
 		}
 	}, []);
+
+	const toggleModalFont = () => {
+		setModalFont(!isModalFont);
+	};
 
 	function renderHeader() {
 		return (
@@ -61,7 +116,7 @@ const ChapterDetail = ({ route, navigation }) => {
 				{/* Greetings */}
 
 				<View>
-					<TouchableOpacity style={{ marginRight: 10 }} onPress={() => console.log('font text')}>
+					<TouchableOpacity style={{ marginRight: 10 }} onPress={toggleModalFont}>
 						<Image
 							source={icons.text_font}
 							resizeMode="contain"
@@ -224,10 +279,64 @@ const ChapterDetail = ({ route, navigation }) => {
 		);
 	}
 
+	function FontText({ item }) {
+		return (
+			<TouchableOpacity
+				style={{
+					height: 50,
+					width: 100,
+					justifyContent: 'center',
+					alignItems: 'center',
+					borderRadius: 10,
+					margin: 5,
+					backgroundColor: '#444444',
+				}}
+			>
+				<Text
+					style={{
+						color: '#D9D9D9',
+					}}
+				>
+					{item.item.name}
+				</Text>
+			</TouchableOpacity>
+		);
+	}
+
+	function editFontText() {
+		return (
+			<View>
+				<Modal
+					animationType="slide"
+					transparent={true}
+					visible={isModalFont}
+					onRequestClose={() => {
+						Alert.alert('Modal has been closed.');
+					}}
+				>
+					<TouchableWithoutFeedback onPress={toggleModalFont} style={{ flex: 1, width: '100%' }}>
+						<View style={{ flex: 1, width: '100%' }}></View>
+					</TouchableWithoutFeedback>
+					<View style={{ marginTop: 10, backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+						<FlatList
+							data={fontData}
+							renderItem={(item) => <FontText item={item} />}
+							contentContainerStyle={{ paddingLeft: 10 }}
+							keyExtractor={(item) => item.id}
+							horizontal
+							showsHorizontalScrollIndicator={false}
+						/>
+					</View>
+				</Modal>
+			</View>
+		);
+	}
+
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: COLORS.black }}>
 			<View style={{ height: 60 }}>{renderHeader()}</View>
-			<View style={{ flex: 1 }}>{renderDetails()}</View>
+			{/* <View style={{ flex: 1 }}>{renderDetails()}</View> */}
+			{editFontText()}
 		</SafeAreaView>
 	);
 };
