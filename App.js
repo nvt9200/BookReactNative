@@ -11,9 +11,9 @@ import { Search } from './src/screens/';
 import { Setting } from './src/screens/';
 import { Profile } from './src/screens/';
 import { ListBook } from './src/screens/';
-import { BookChapter } from './src/screens/';
 import { ChapterDetail } from './src/screens/';
 import { ChapterList } from './src/screens/';
+import { ReadBook } from './src/screens/';
 import Tabs from './src/navigation/tabs';
 
 StatusBar.setHidden(true);
@@ -65,12 +65,12 @@ const App = () => {
 					<Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
 					{/* BookDetail Screens */}
 					<Stack.Screen name="BookDetail" component={BookDetail} options={{ headerShown: false }} />
+					{/* ReadBook Screens */}
+					<Stack.Screen name="ReadBook" component={ReadBook} options={{ headerShown: false }} />
 					{/* ListBook Screens */}
 					<Stack.Screen name="ListBook" component={ListBook} options={{ headerShown: false }} />
 					{/* Category Screens */}
 					<Stack.Screen name="Category" component={Category} options={{ headerShown: false }} />
-					{/* BookChapter Screens */}
-					<Stack.Screen name="BookChapter" component={BookChapter} options={{ headerShown: false }} />
 					{/* ChapterDetail Screens */}
 					<Stack.Screen name="ChapterDetail" component={ChapterDetail} options={{ headerShown: false }} />
 					{/* ChapterList Screens */}

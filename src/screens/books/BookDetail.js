@@ -148,6 +148,9 @@ const BookDetail = ({ route, navigation }) => {
 			<View
 				style={{
 					margin: 5,
+					width: 320,
+					height: 160,
+					maxHeight: 180,
 					backgroundColor: 'rgba(61, 61, 61,0.6)',
 					borderRadius: 15,
 				}}
@@ -268,7 +271,7 @@ const BookDetail = ({ route, navigation }) => {
 						<View
 							style={{
 								width: '100%',
-								maxHeight: 250,
+								maxHeight: 260,
 								borderRadius: 15,
 								alignItems: 'center',
 								backgroundColor: 'rgb(0,0,0)',
@@ -284,8 +287,7 @@ const BookDetail = ({ route, navigation }) => {
 								<View style={{ flex: 1 }}>
 									<TouchableOpacity
 										style={{
-											flex: 2 / 10,
-											flexDirection: 'row',
+											flex: 2.5 / 10,
 											justifyContent: 'center',
 											alignItems: 'center',
 											borderTopRightRadius: 15,
@@ -294,6 +296,15 @@ const BookDetail = ({ route, navigation }) => {
 										}}
 										onPress={toggleModalRelatedBooks}
 									>
+										<View
+											style={{
+												width: 40,
+												height: 5,
+												borderRadius: 50,
+												marginBottom: 10,
+												backgroundColor: 'rgba(255, 255, 255,0.8)',
+											}}
+										></View>
 										<Text
 											style={{
 												color: '#fff',
@@ -305,7 +316,7 @@ const BookDetail = ({ route, navigation }) => {
 											Related Books
 										</Text>
 									</TouchableOpacity>
-									<View style={{ flex: 7.5 / 10, margin: 10 }}>
+									<View style={{ flex: 7.5 / 10, margin: 10, alignItems: 'center' }}>
 										<FlatList
 											data={relatedBooks}
 											renderItem={(item) => <ItemRelatedBooks item={item} />}
@@ -459,6 +470,15 @@ const BookDetail = ({ route, navigation }) => {
 											}}
 											onPress={toggleModalComment}
 										>
+											<View
+												style={{
+													width: 40,
+													height: 5,
+													borderRadius: 50,
+													marginBottom: 5,
+													backgroundColor: 'rgba(255, 255, 255,0.8)',
+												}}
+											></View>
 											<Text
 												style={{
 													color: '#fff',
@@ -873,7 +893,7 @@ const BookDetail = ({ route, navigation }) => {
 						alignItems: 'center',
 						justifyContent: 'center',
 					}}
-					onPress={() => navigation.navigate('BookChapter')}
+					onPress={() => navigation.navigate('ChapterDetail')}
 				>
 					<Text style={{ ...FONTS.h3, color: COLORS.white }}>Start Reading</Text>
 				</TouchableOpacity>

@@ -1,5 +1,6 @@
 module.exports = {
-    userInfo: null,
-    userProfile : null,
-    bookId : null,
-}
+	userInfo: null,
+	userProfile: null,
+	bookId: null,
+	bookDetail: null,
+};

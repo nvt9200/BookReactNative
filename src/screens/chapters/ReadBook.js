@@ -2,20 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, Image, FlatList, SafeAreaView, ScrollView } from 'react-native';
 
 import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
+
+import ViewPager from '@react-native-community/viewpager';
+
 import global from '../../constants/global';
 
-const BookChapter = ({ navigation }) => {
+const ReadBook = ({ navigation }) => {
 	const [chapterBookData, setChapterBookData] = useState([]);
-	// const {BookChapter} = route.params;
+	// const {ReadBook} = route.params;
 	const axios = require('axios');
 
-	var BookChapter = global.bookId;
-
 	useEffect(() => {
-		var link1 = 'http://myebookapp.000webhostapp.com//api_chapter.php?book_id=' + BookChapter[0].id;
+		var link = 'http://myebookapp.000webhostapp.com//api_chapter.php?book_id=' + global.bookId;
 
 		axios
-			.get(link1)
+			.get(link)
 			.then(function (response) {
 				setChapterBookData(response.data.EBOOK_APP);
 			})
@@ -52,7 +53,7 @@ const BookChapter = ({ navigation }) => {
 
 				<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 					<Text style={{ ...FONTS.h2, color: 'white', textAlign: 'center' }}>
-						{BookChapter[0].book_title}
+						{global.bookId[0].book_title}
 					</Text>
 				</View>
 			</View>
@@ -93,23 +94,19 @@ const BookChapter = ({ navigation }) => {
 	}
 
 	return (
-		<SafeAreaView style={{ flex: 1, backgroundColor: COLORS.black, width: '100%', height: '100%' }}>
-			<View style={{ backgroundColor: COLORS.black }}>
-				<View style={{ height: 70, width: '100%' }}>{bookName()}</View>
-
-				<ScrollView>
-					<View style={{ flex: 1, marginTop: SIZES.padding }}>
-						<FlatList
-							data={chapterBookData}
-							renderItem={(item) => <ChapterData item={item} />}
-							keyExtractor={(item) => item.chap_id}
-							showsHorizontalScrollIndicator={false}
-						/>
+		<SafeAreaView style={{ flex: 1 }}>
+			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<ViewPager style={{ flex: 1 }} initialPage={0}>
+					<View key="1">
+						<Text>First page</Text>
 					</View>
-				</ScrollView>
+					<View key="2">
+						<Text style={{ color: '#fff' }}>Second page</Text>
+					</View>
+				</ViewPager>
 			</View>
 		</SafeAreaView>
 	);
 };
 
-export default BookChapter;
+export default ReadBook;

@@ -10,64 +10,83 @@ import {
 	Animated,
 	Modal,
 	TouchableWithoutFeedback,
+	Dimensions,
 } from 'react-native';
 
-import { COLORS, SIZES, icons } from '../../constants';
+import ViewPager from '@react-native-community/viewpager';
 import HTML from 'react-native-render-html';
 
-const ChapterDetail = ({ route, navigation }) => {
+import { COLORS, SIZES, icons } from '../../constants';
+import global from '../../constants/global';
+
+const ChapterDetail = ({ navigation }) => {
 	const [scrollViewWholeHeight, setScrollViewWholeHeight] = useState(1);
 	const [scrollViewVisibleHeight, setScrollViewVisibleHeight] = useState(0);
-	const [fontText, setFontText] = useState('Roboto-Bold');
+	const [fontText, setFontText] = useState('Literata-Regular');
+	const [textSize, setTextSize] = useState(18);
+	const [textLineHeigh, setTextLineHeight] = useState(30);
+	const [chapterBookData, setChapterBookData] = useState([]);
 
 	const indicator = new Animated.Value(0);
-	const { readDetail } = route.params;
-
-	const [prev, setPrev] = useState();
 	const [isModalFont, setModalFont] = useState(false);
+
+	let screenWidth = Dimensions.get('window').width;
+	let screenHeight = Dimensions.get('window').height;
+
+	const axios = require('axios');
+
+	useEffect(() => {
+		var link = 'http://myebookapp.000webhostapp.com//api_chapter.php?book_id=' + global.bookId[0].id;
+
+		axios
+			.get(link)
+			.then(function (response) {
+				setChapterBookData(response.data.EBOOK_APP);
+				global.bookDetail = response.data.EBOOK_APP;
+				console.log(global.bookDetail);
+			})
+			.catch(function (err) {
+				console.log(err);
+			});
+	}, []);
 
 	const fontData = [
 		{
 			id: 1,
 			name: 'Literata',
+			fontStyle: 'Literata-Regular',
 		},
 		{
 			id: 2,
-			name: 'Architecture',
+			name: 'Palatino',
+			fontStyle: 'Pala-tino',
 		},
 		{
 			id: 3,
-			name: 'Palatino',
+			name: 'Roboto',
+			fontStyle: 'Roboto-Black',
 		},
 		{
 			id: 4,
-			name: 'Roboto',
+			name: 'ProductSans',
+			fontStyle: 'Product-Sans',
 		},
 		{
 			id: 5,
-			name: 'ProductSans',
+			name: 'Traveling',
+			fontStyle: 'Traveling-Typewriter',
 		},
 		{
 			id: 6,
-			name: 'Traveling',
+			name: 'ColusRegular',
+			fontStyle: 'Colus-Regular',
 		},
 		{
 			id: 7,
-			name: 'ColusRegular',
-		},
-		{
-			id: 8,
 			name: 'MuseoSansCyrl',
+			fontStyle: 'Museo-Sans',
 		},
 	];
-
-	useEffect(() => {
-		if (readDetail.chapter_number < 1.1) {
-			setPrev(true);
-		} else {
-			setPrev(false);
-		}
-	}, []);
 
 	const toggleModalFont = () => {
 		setModalFont(!isModalFont);
@@ -132,7 +151,7 @@ const ChapterDetail = ({ route, navigation }) => {
 		);
 	}
 
-	function renderDetails() {
+	function RenderDetails({ item }) {
 		const indicatorSize =
 			scrollViewWholeHeight > scrollViewVisibleHeight
 				? (scrollViewVisibleHeight * scrollViewVisibleHeight) / scrollViewWholeHeight
@@ -140,140 +159,107 @@ const ChapterDetail = ({ route, navigation }) => {
 
 		const difference = scrollViewVisibleHeight > indicatorSize ? scrollViewVisibleHeight - indicatorSize : 1;
 
-		const touchShowPrev = (
-			<View>
-				<TouchableOpacity
-					style={{
-						width: 80,
-						height: 50,
-						flexDirection: 'row',
-						borderRadius: 10,
-						justifyContent: 'center',
-						alignItems: 'center',
-						backgroundColor: '#444444',
-					}}
-					onPress={() => console.log('font text')}
-				>
-					<Image
-						source={icons.arrow_left}
-						resizeMode="contain"
-						style={{
-							width: 20,
-							height: 20,
-							tintColor: '#D9D9D9',
-						}}
-					/>
-					<Text style={{ color: '#D9D9D9', marginLeft: 10 }}>Prev</Text>
-				</TouchableOpacity>
-			</View>
-		);
-		const touchHidePrev = <View></View>;
-
-		const showPrev = prev ? touchHidePrev : touchShowPrev;
-
 		return (
-			<View style={{ flex: 1, flexDirection: 'row', paddingHorizontal: 5, alignItems: 'center' }}>
-				{/* Greetings */}
-				<View style={{ flex: 1, flexDirection: 'row', padding: 10 }}>
-					{/* Custom Scrollbar */}
-					<View style={{ width: 4, height: '100%' }}>
-						<Animated.View
-							style={{
-								width: 4,
-								height: indicatorSize,
-								transform: [
-									{
-										translateY: Animated.multiply(
-											indicator,
-											scrollViewVisibleHeight / scrollViewWholeHeight
-										).interpolate({
-											inputRange: [0, difference],
-											outputRange: [0, difference],
-											extrapolate: 'clamp',
-										}),
+			<View key={item.item.chapter_number} style={{ width: screenWidth }}>
+				<View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+					{/* Greetings */}
+					<View style={{ flex: 1 }}>
+						<View style={{ flex: 1, flexDirection: 'row', padding: 15 }}>
+							{/* Custom Scrollbar */}
+							<View style={{ width: 4, height: '100%' }}>
+								<Animated.View
+									style={{
+										width: 4,
+										height: indicatorSize,
+										transform: [
+											{
+												translateY: Animated.multiply(
+													indicator,
+													scrollViewVisibleHeight / scrollViewWholeHeight
+												).interpolate({
+													inputRange: [0, difference],
+													outputRange: [0, difference],
+													extrapolate: 'clamp',
+												}),
+											},
+										],
+									}}
+								/>
+							</View>
+
+							{/* Description */}
+
+							<ScrollView
+								showsVerticalScrollIndicator={false}
+								onLayout={({
+									nativeEvent: {
+										layout: { x, y, width, height },
 									},
-								],
-							}}
-						/>
-					</View>
-
-					{/* Description */}
-
-					<ScrollView
-						showsVerticalScrollIndicator={false}
-						onContentSizeChange={(width, height) => {
-							setScrollViewWholeHeight(height);
-						}}
-						onLayout={({
-							nativeEvent: {
-								layout: { x, y, width, height },
-							},
-						}) => {
-							setScrollViewVisibleHeight(height);
-						}}
-						onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: indicator } } }], {
-							useNativeDriver: false,
-						})}
-					>
-						<View style={{ flex: 1, height: 140, justifyContent: 'center', alignItems: 'center' }}>
-							<Text
-								style={{
-									fontSize: 30,
-									fontWeight: 'bold',
-									color: 'white',
-									textAlign: 'center',
-									lineHeight: 35,
+								}) => {
+									setScrollViewVisibleHeight(height);
 								}}
+								onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: indicator } } }], {
+									useNativeDriver: false,
+								})}
+								nestedScrollEnabled={true}
 							>
-								Chương {readDetail.chapter_number} : {readDetail.chapter_title}
-							</Text>
+								<View
+									style={{
+										flex: 1,
+										height: 140,
+										justifyContent: 'center',
+										alignItems: 'center',
+									}}
+								>
+									<Text
+										style={{
+											fontSize: 30,
+											fontWeight: 'bold',
+											color: 'white',
+											textAlign: 'center',
+											lineHeight: 35,
+										}}
+									>
+										Chương {item.item.chapter_number} : {item.item.chapter_title}
+									</Text>
+								</View>
+
+								<HTML
+									html={item.item.chapter_content}
+									tagsStyles={{
+										p: {
+											color: 'white',
+											lineHeight: textLineHeigh,
+											fontFamily: fontText,
+											fontSize: textSize,
+										},
+									}}
+								/>
+							</ScrollView>
 						</View>
-
-						<HTML
-							html={readDetail.chapter_content}
-							tagsStyles={{
-								p: { color: 'white', lineHeight: 20, fontSize: 18 },
-							}}
-						/>
-
 						<View
 							style={{
-								flex: 1,
 								flexDirection: 'row',
-								marginTop: 50,
-								marginBottom: 20,
+								marginTop: 5,
+								height: 20,
+								backgroundColor: '#fff',
+								alignItems: 'center',
 								justifyContent: 'space-between',
 							}}
 						>
-							{showPrev}
-							<View>
-								<TouchableOpacity
-									style={{
-										width: 80,
-										height: 50,
-										flexDirection: 'row',
-										borderRadius: 10,
-										justifyContent: 'center',
-										alignItems: 'center',
-										backgroundColor: '#444444',
-									}}
-									onPress={() => console.log('font text')}
-								>
-									<Text style={{ color: '#D9D9D9', marginRight: 10 }}>Next</Text>
-
-									<Image
-										source={icons.arrow_right}
-										resizeMode="contain"
-										style={{
-											width: 20,
-											height: 20,
-											tintColor: '#D9D9D9',
-										}}
-									/>
-								</TouchableOpacity>
-							</View>
+							<Text
+								style={{
+									fontSize: 13,
+									fontWeight: 'bold',
+									color: '#000',
+									textAlign: 'center',
+									marginLeft: 20,
+								}}
+							>
+								Chương {item.item.chapter_number} : {item.item.chapter_title}
+							</Text>
 						</View>
-					</ScrollView>
+					</View>
 				</View>
 			</View>
 		);
@@ -284,17 +270,21 @@ const ChapterDetail = ({ route, navigation }) => {
 			<TouchableOpacity
 				style={{
 					height: 50,
-					width: 100,
+					maxWidth: 180,
 					justifyContent: 'center',
 					alignItems: 'center',
 					borderRadius: 10,
 					margin: 5,
 					backgroundColor: '#444444',
 				}}
+				onPress={() => setFontText(item.item.fontStyle)}
 			>
 				<Text
 					style={{
 						color: '#D9D9D9',
+						margin: 15,
+						fontSize: 16,
+						fontFamily: item.item.fontStyle,
 					}}
 				>
 					{item.item.name}
@@ -317,15 +307,246 @@ const ChapterDetail = ({ route, navigation }) => {
 					<TouchableWithoutFeedback onPress={toggleModalFont} style={{ flex: 1, width: '100%' }}>
 						<View style={{ flex: 1, width: '100%' }}></View>
 					</TouchableWithoutFeedback>
-					<View style={{ marginTop: 10, backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
-						<FlatList
-							data={fontData}
-							renderItem={(item) => <FontText item={item} />}
-							contentContainerStyle={{ paddingLeft: 10 }}
-							keyExtractor={(item) => item.id}
-							horizontal
-							showsHorizontalScrollIndicator={false}
-						/>
+
+					<View
+						style={{
+							backgroundColor: 'rgba(0, 0, 0, 0.9)',
+							borderTopLeftRadius: 20,
+							borderTopRightRadius: 20,
+						}}
+					>
+						{/* Font text */}
+						<View>
+							<TouchableOpacity
+								style={{
+									backgroundColor: '#444444',
+									height: 50,
+									borderTopLeftRadius: 20,
+									borderTopRightRadius: 20,
+									justifyContent: 'center',
+									alignItems: 'center',
+								}}
+								onPress={toggleModalFont}
+							>
+								<View
+									style={{
+										width: 40,
+										height: 5,
+										borderRadius: 50,
+										marginBottom: 10,
+										backgroundColor: 'rgba(255, 255, 255,0.8)',
+									}}
+								></View>
+								<Text
+									style={{
+										color: '#D9D9D9',
+										fontSize: 18,
+										fontWeight: 'bold',
+									}}
+								>
+									Cài Đặt
+								</Text>
+							</TouchableOpacity>
+							<Text
+								style={{
+									color: '#D9D9D9',
+									fontSize: 16,
+									margin: 5,
+								}}
+							>
+								Font chữ
+							</Text>
+							<View style={{ marginRight: 10 }}>
+								<FlatList
+									data={fontData}
+									renderItem={(item) => <FontText item={item} />}
+									keyExtractor={(item) => item.id.toString()}
+									horizontal
+									showsHorizontalScrollIndicator={false}
+								/>
+							</View>
+							<View
+								style={{
+									backgroundColor: '#D9D9D9',
+									height: 1,
+									margin: 5,
+								}}
+							></View>
+						</View>
+
+						{/* Text size */}
+						<View>
+							<View
+								style={{
+									height: 50,
+									flexDirection: 'row',
+									justifyContent: 'space-between',
+									alignItems: 'center',
+									borderRadius: 10,
+									margin: 10,
+								}}
+							>
+								<TouchableOpacity
+									style={{
+										height: 45,
+										width: 80,
+										justifyContent: 'center',
+										alignItems: 'center',
+										borderRadius: 10,
+										margin: 5,
+										backgroundColor: '#444444',
+									}}
+									onPress={() => {
+										if ((textSize <= 25) & (textSize > 15)) {
+											setTextSize(textSize - 1);
+										}
+									}}
+								>
+									<Text
+										style={{
+											color: '#D9D9D9',
+											fontSize: 22,
+										}}
+									>
+										A-
+									</Text>
+								</TouchableOpacity>
+								<Text
+									style={{
+										color: '#D9D9D9',
+										fontSize: 25,
+									}}
+								>
+									{textSize}
+								</Text>
+								<TouchableOpacity
+									style={{
+										height: 45,
+										width: 80,
+										justifyContent: 'center',
+										alignItems: 'center',
+										borderRadius: 10,
+										margin: 5,
+										backgroundColor: '#444444',
+									}}
+									onPress={() => {
+										if ((textSize < 25) & (textSize >= 15)) {
+											setTextSize(textSize + 1);
+										}
+									}}
+								>
+									<Text
+										style={{
+											color: '#D9D9D9',
+											fontSize: 22,
+										}}
+									>
+										A+
+									</Text>
+								</TouchableOpacity>
+							</View>
+							<View
+								style={{
+									backgroundColor: '#D9D9D9',
+									height: 1,
+									margin: 5,
+								}}
+							></View>
+						</View>
+
+						{/* line Height */}
+						<View>
+							<Text
+								style={{
+									color: '#D9D9D9',
+									fontSize: 16,
+									margin: 5,
+								}}
+							>
+								Cách dòng
+							</Text>
+							<View
+								style={{
+									height: 60,
+									flexDirection: 'row',
+									justifyContent: 'space-between',
+									alignItems: 'center',
+									borderRadius: 10,
+									marginBottom: 10,
+								}}
+							>
+								<TouchableOpacity
+									style={{
+										height: 50,
+										width: 50,
+										justifyContent: 'center',
+										alignItems: 'center',
+										borderRadius: 50,
+										marginLeft: 30,
+										backgroundColor: '#444444',
+									}}
+									onPress={() => {
+										setTextLineHeight(30);
+									}}
+								>
+									<Text
+										style={{
+											color: '#D9D9D9',
+											fontSize: 18,
+										}}
+									>
+										Nhỏ
+									</Text>
+								</TouchableOpacity>
+								<TouchableOpacity
+									style={{
+										height: 50,
+										width: 50,
+										justifyContent: 'center',
+										alignItems: 'center',
+										borderRadius: 50,
+										margin: 5,
+										backgroundColor: '#444444',
+									}}
+									onPress={() => {
+										setTextLineHeight(40);
+									}}
+								>
+									<Text
+										style={{
+											color: '#D9D9D9',
+											fontSize: 18,
+										}}
+									>
+										Vừa
+									</Text>
+								</TouchableOpacity>
+								<TouchableOpacity
+									style={{
+										height: 50,
+										width: 50,
+										justifyContent: 'center',
+										alignItems: 'center',
+										borderRadius: 50,
+										marginRight: 30,
+										margin: 5,
+										backgroundColor: '#444444',
+									}}
+									onPress={() => {
+										setTextLineHeight(50);
+									}}
+								>
+									<Text
+										style={{
+											color: '#D9D9D9',
+											fontSize: 18,
+										}}
+									>
+										Lớn
+									</Text>
+								</TouchableOpacity>
+							</View>
+						</View>
 					</View>
 				</Modal>
 			</View>
@@ -335,7 +556,16 @@ const ChapterDetail = ({ route, navigation }) => {
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: COLORS.black }}>
 			<View style={{ height: 60 }}>{renderHeader()}</View>
-			{/* <View style={{ flex: 1 }}>{renderDetails()}</View> */}
+			<View style={{ flex: 1, width: screenWidth, height: screenHeight }}>
+				<FlatList
+					data={chapterBookData}
+					renderItem={(item) => <RenderDetails item={item} />}
+					keyExtractor={(item) => item.chapter_number.toString()}
+					horizontal
+					pagingEnabled={true}
+					showsHorizontalScrollIndicator={false}
+				/>
+			</View>
 			{editFontText()}
 		</SafeAreaView>
 	);
