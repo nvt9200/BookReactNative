@@ -12,7 +12,6 @@ import { Setting } from './src/screens/';
 import { Profile } from './src/screens/';
 import { ListBook } from './src/screens/';
 import { ChapterDetail } from './src/screens/';
-import { ChapterList } from './src/screens/';
 import { ReadBook } from './src/screens/';
 import Tabs from './src/navigation/tabs';
 
@@ -73,8 +72,6 @@ const App = () => {
 					<Stack.Screen name="Category" component={Category} options={{ headerShown: false }} />
 					{/* ChapterDetail Screens */}
 					<Stack.Screen name="ChapterDetail" component={ChapterDetail} options={{ headerShown: false }} />
-					{/* ChapterList Screens */}
-					<Stack.Screen name="ChapterList" component={ChapterList} options={{ headerShown: false }} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		);

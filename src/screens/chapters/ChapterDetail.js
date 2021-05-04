@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import {
 	Text,
 	View,
@@ -8,10 +8,10 @@ import {
 	ScrollView,
 	FlatList,
 	Animated,
-	Modal,
 	TouchableWithoutFeedback,
 	Dimensions,
 } from 'react-native';
+import Modal from 'react-native-modal';
 
 import ViewPager from '@react-native-community/viewpager';
 import HTML from 'react-native-render-html';
@@ -26,14 +26,18 @@ const ChapterDetail = ({ navigation }) => {
 	const [textSize, setTextSize] = useState(18);
 	const [textLineHeigh, setTextLineHeight] = useState(30);
 	const [chapterBookData, setChapterBookData] = useState([]);
+	const [pageFocus, setPageFocus] = useState();
 
 	const indicator = new Animated.Value(0);
 	const [isModalFont, setModalFont] = useState(false);
+	const [isModalChapter, setModalChapter] = useState(false);
 
-	let screenWidth = Dimensions.get('window').width;
-	let screenHeight = Dimensions.get('window').height;
-
+	const screenWidth = Dimensions.get('window').width;
+	const screenHeight = Dimensions.get('window').height;
 	const axios = require('axios');
+
+	var Book = global.bookId;
+	let listViewRef;
 
 	useEffect(() => {
 		var link = 'http://myebookapp.000webhostapp.com//api_chapter.php?book_id=' + global.bookId[0].id;
@@ -43,7 +47,6 @@ const ChapterDetail = ({ navigation }) => {
 			.then(function (response) {
 				setChapterBookData(response.data.EBOOK_APP);
 				global.bookDetail = response.data.EBOOK_APP;
-				console.log(global.bookDetail);
 			})
 			.catch(function (err) {
 				console.log(err);
@@ -92,6 +95,88 @@ const ChapterDetail = ({ navigation }) => {
 		setModalFont(!isModalFont);
 	};
 
+	const toggleModalChapter = () => {
+		setModalChapter(!isModalChapter);
+	};
+
+	const focusButton = () => {
+		listViewRef.scrollToIndex({
+			index: pageFocus,
+			animated: false,
+		});
+	};
+
+	function bookName() {
+		return (
+			<View
+				style={{
+					flexDirection: 'row',
+					width: '100%',
+					height: '100%',
+					backgroundColor: 'rgba(33, 52, 50,0.95)',
+					justifyContent: 'center',
+					alignItems: 'center',
+					borderTopLeftRadius: 20,
+					borderTopRightRadius: 20,
+				}}
+			>
+				<TouchableOpacity
+					style={{
+						marginLeft: 20,
+						width: 40,
+						height: 45,
+						justifyContent: 'center',
+					}}
+					onPress={toggleModalChapter}
+				>
+					<Image
+						source={icons.arrow_right}
+						resizeMode="contain"
+						style={{
+							width: 20,
+							height: 20,
+							tintColor: 'white',
+						}}
+					/>
+				</TouchableOpacity>
+
+				<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+					<Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold', fontSize: 20 }}>
+						{Book[0].book_title}
+					</Text>
+				</View>
+			</View>
+		);
+	}
+
+	function chapterData({ item }) {
+		return (
+			<View style={{ margin: 5, flexDirection: 'row', justifyContent: 'center' }}>
+				<TouchableOpacity
+					style={{
+						width: '100%',
+						height: 60,
+						backgroundColor: 'white',
+						borderRadius: SIZES.radius,
+					}}
+					// onPress={(setPageFocus(item.chapter_number), { focusButton })}
+				>
+					<View
+						style={{
+							flex: 1,
+							marginLeft: 10,
+							flexDirection: 'row',
+							alignItems: 'center',
+						}}
+					>
+						<Text style={{ color: 'black' }}>Chương {item.chapter_number} : </Text>
+						<Text style={{ color: 'black' }}>{item.chapter_title}</Text>
+					</View>
+				</TouchableOpacity>
+			</View>
+		);
+	}
+
 	function renderHeader() {
 		return (
 			<View
@@ -99,13 +184,15 @@ const ChapterDetail = ({ navigation }) => {
 					flex: 1,
 					flexDirection: 'row',
 					justifyContent: 'space-between',
-					paddingHorizontal: SIZES.padding,
 					alignItems: 'center',
 					backgroundColor: '#444444',
 				}}
 			>
 				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-					<TouchableOpacity style={{ marginLeft: 5 }} onPress={() => navigation.navigate('BookDetail')}>
+					<TouchableOpacity
+						style={{ marginLeft: 5, height: 50, width: 50, alignItems: 'center', justifyContent: 'center' }}
+						onPress={() => navigation.navigate('BookDetail')}
+					>
 						<Image
 							source={icons.close}
 							resizeMode="contain"
@@ -116,9 +203,40 @@ const ChapterDetail = ({ navigation }) => {
 							}}
 						/>
 					</TouchableOpacity>
+				</View>
+
+				{/* Greetings */}
+
+				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 					<TouchableOpacity
-						style={{ marginLeft: 30, marginTop: 5 }}
-						onPress={() => navigation.navigate('ChapterList')}
+						style={{
+							justifyContent: 'center',
+							alignItems: 'center',
+							width: 50,
+							height: 50,
+						}}
+						onPress={toggleModalFont}
+					>
+						<Image
+							source={icons.text_font}
+							resizeMode="contain"
+							style={{
+								width: 25,
+								height: 25,
+								tintColor: '#D9D9D9',
+							}}
+						/>
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={{
+							marginTop: 5,
+							marginRight: 10,
+							justifyContent: 'center',
+							alignItems: 'center',
+							width: 50,
+							height: 50,
+						}}
+						onPress={toggleModalChapter}
 					>
 						<Image
 							source={icons.menu_icon}
@@ -126,22 +244,6 @@ const ChapterDetail = ({ navigation }) => {
 							style={{
 								width: 20,
 								height: 20,
-								tintColor: '#D9D9D9',
-							}}
-						/>
-					</TouchableOpacity>
-				</View>
-
-				{/* Greetings */}
-
-				<View>
-					<TouchableOpacity style={{ marginRight: 10 }} onPress={toggleModalFont}>
-						<Image
-							source={icons.text_font}
-							resizeMode="contain"
-							style={{
-								width: 25,
-								height: 25,
 								tintColor: '#D9D9D9',
 							}}
 						/>
@@ -189,20 +291,7 @@ const ChapterDetail = ({ navigation }) => {
 
 							{/* Description */}
 
-							<ScrollView
-								showsVerticalScrollIndicator={false}
-								onLayout={({
-									nativeEvent: {
-										layout: { x, y, width, height },
-									},
-								}) => {
-									setScrollViewVisibleHeight(height);
-								}}
-								onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: indicator } } }], {
-									useNativeDriver: false,
-								})}
-								nestedScrollEnabled={true}
-							>
+							<ScrollView nestedScrollEnabled={true}>
 								<View
 									style={{
 										flex: 1,
@@ -214,10 +303,10 @@ const ChapterDetail = ({ navigation }) => {
 									<Text
 										style={{
 											fontSize: 30,
-											fontWeight: 'bold',
 											color: 'white',
 											textAlign: 'center',
-											lineHeight: 35,
+											lineHeight: textLineHeigh,
+											fontFamily: fontText,
 										}}
 									>
 										Chương {item.item.chapter_number} : {item.item.chapter_title}
@@ -293,21 +382,20 @@ const ChapterDetail = ({ navigation }) => {
 		);
 	}
 
-	function editFontText() {
+	function modalFontText() {
 		return (
 			<View>
 				<Modal
-					animationType="slide"
+					animationIn="slideInUp"
 					transparent={true}
-					visible={isModalFont}
-					onRequestClose={() => {
-						Alert.alert('Modal has been closed.');
-					}}
+					isVisible={isModalFont}
+					customBackdrop={
+						<TouchableWithoutFeedback onPress={toggleModalFont} style={{ flex: 1, width: '100%' }}>
+							<View style={{ flex: 1, width: '100%' }}></View>
+						</TouchableWithoutFeedback>
+					}
 				>
-					<TouchableWithoutFeedback onPress={toggleModalFont} style={{ flex: 1, width: '100%' }}>
-						<View style={{ flex: 1, width: '100%' }}></View>
-					</TouchableWithoutFeedback>
-
+					<View style={{ flex: 1, width: '100%' }}></View>
 					<View
 						style={{
 							backgroundColor: 'rgba(0, 0, 0, 0.9)',
@@ -553,6 +641,57 @@ const ChapterDetail = ({ navigation }) => {
 		);
 	}
 
+	function modalChapterList() {
+		return (
+			<Modal
+				animationIn="slideInRight"
+				animationOut="slideOutRight"
+				transparent={true}
+				isVisible={isModalChapter}
+				customBackdrop={
+					<TouchableWithoutFeedback onPress={toggleModalChapter} style={{ flex: 1, width: '100%' }}>
+						<View style={{ flex: 1, width: '100%' }}></View>
+					</TouchableWithoutFeedback>
+				}
+			>
+				<View style={{ flex: 1, flexDirection: 'row' }}>
+					<TouchableWithoutFeedback onPress={toggleModalChapter} style={{ flex: 1, width: '100%' }}>
+						<View style={{ flex: 0.25, width: '100%' }}></View>
+					</TouchableWithoutFeedback>
+					<View style={{ flex: 0.75 }}>
+						<View style={{ flex: 0.9 / 10, height: 70, width: '100%' }}>{bookName()}</View>
+						<View
+							style={{
+								flex: 6 / 10,
+								backgroundColor: 'rgba(0,0,0,0.85)',
+								borderBottomEndRadius: 20,
+								borderBottomLeftRadius: 20,
+							}}
+						>
+							<View style={{ flex: 1, marginTop: 15, marginBottom: 10 }}>
+								<FlatList
+									data={chapterBookData}
+									renderItem={chapterData}
+									keyExtractor={(item) => item.chapter_number.toString()}
+									vertical
+									showsHorizontalScrollIndicator={false}
+								/>
+							</View>
+							<View
+								style={{
+									height: 20,
+									backgroundColor: 'rgba(33, 52, 50,6)',
+									borderBottomEndRadius: 20,
+									borderBottomLeftRadius: 20,
+								}}
+							></View>
+						</View>
+					</View>
+				</View>
+			</Modal>
+		);
+	}
+
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: COLORS.black }}>
 			<View style={{ height: 60 }}>{renderHeader()}</View>
@@ -564,9 +703,13 @@ const ChapterDetail = ({ navigation }) => {
 					horizontal
 					pagingEnabled={true}
 					showsHorizontalScrollIndicator={false}
+					ref={(ref) => {
+						listViewRef = ref;
+					}}
 				/>
 			</View>
-			{editFontText()}
+			{modalChapterList()}
+			{modalFontText()}
 		</SafeAreaView>
 	);
 };

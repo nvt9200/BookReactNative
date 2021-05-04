@@ -7,21 +7,7 @@ import Profile from './setting/Profile';
 import ListBook from './categories/ListBook';
 import Login from './login/Login';
 import ChapterDetail from './chapters/ChapterDetail';
-import ChapterList from './chapters/ChapterList';
 import Register from './login/Register';
 import ReadBook from './chapters/ReadBook';
 
-export {
-	Home,
-	BookDetail,
-	Category,
-	Search,
-	Setting,
-	Profile,
-	ListBook,
-	Login,
-	ChapterDetail,
-	ChapterList,
-	Register,
-	ReadBook,
-};
+export { Home, BookDetail, Category, Search, Setting, Profile, ListBook, Login, ChapterDetail, Register, ReadBook };

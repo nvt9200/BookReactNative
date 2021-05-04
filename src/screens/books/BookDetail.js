@@ -9,15 +9,18 @@ import {
 	Animated,
 	ToastAndroid,
 	TextInput,
-	Modal,
+	FlatList,
+	Dimensions,
 	TouchableWithoutFeedback,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import { AirbnbRating } from 'react-native-ratings';
 import global from '../../constants/global';
 import HTML from 'react-native-render-html';
 
 import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
-import { FlatList } from 'react-native';
+
+const deviceWidth = Dimensions.get('window').width;
 
 const LineDivider = () => {
 	return (
@@ -257,7 +260,16 @@ const BookDetail = ({ route, navigation }) => {
 	function modalRelatedBooks() {
 		return (
 			<View>
-				<Modal animationType="slide" transparent={true} visible={isModalVisibleRelatedBooks}>
+				<Modal
+					animationIn="slideInLeft"
+					transparent={true}
+					isVisible={isModalVisibleRelatedBooks}
+					customBackdrop={
+						<TouchableWithoutFeedback onPress={toggleModalRelatedBooks} style={{ flex: 1, width: '100%' }}>
+							<View style={{ flex: 1, width: '100%' }}></View>
+						</TouchableWithoutFeedback>
+					}
+				>
 					<View
 						style={{
 							flex: 1,
@@ -265,16 +277,14 @@ const BookDetail = ({ route, navigation }) => {
 							alignItems: 'center',
 						}}
 					>
-						<TouchableWithoutFeedback onPress={toggleModalRelatedBooks} style={{ flex: 1, width: '100%' }}>
-							<View style={{ flex: 1, width: '100%' }}></View>
-						</TouchableWithoutFeedback>
+						<View style={{ flex: 1, width: '100%' }}></View>
 						<View
 							style={{
 								width: '100%',
 								maxHeight: 260,
 								borderRadius: 15,
 								alignItems: 'center',
-								backgroundColor: 'rgb(0,0,0)',
+								backgroundColor: 'blue',
 							}}
 						>
 							<View
@@ -420,15 +430,16 @@ const BookDetail = ({ route, navigation }) => {
 		return (
 			<View>
 				<Modal
-					animationType="slide"
-					onBackdropPress={toggleModalComment}
+					animationIn="slideInRight"
 					transparent={true}
-					visible={isModalVisibleComment}
-					style={{ backgroundColor: 'red' }}
+					isVisible={isModalVisibleComment}
+					customBackdrop={
+						<TouchableWithoutFeedback onPress={toggleModalComment} style={{ flex: 1, width: '100%' }}>
+							<View style={{ flex: 1, width: '100%' }}></View>
+						</TouchableWithoutFeedback>
+					}
 				>
-					<TouchableWithoutFeedback onPress={toggleModalComment}>
-						<View style={{ flex: 1, width: '100%' }}></View>
-					</TouchableWithoutFeedback>
+					<View style={{ flex: 1, width: '100%' }}></View>
 					<View
 						style={{
 							justifyContent: 'center',
