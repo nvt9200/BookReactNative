@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Image, SafeAreaView, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import global from '../../constants/global';
-import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
+import { COLORS, icons } from '../../constants';
 
 const Setting = ({ navigation }) => {
 	console.log(global.userInfo);
@@ -119,6 +119,7 @@ const Setting = ({ navigation }) => {
 						marginTop: 15,
 						marginBottom: 40,
 					}}
+					onPress={() => navigation.navigate('Login')}
 				>
 					<Image source={icons.logout} style={{ width: 20, height: 20, tintColor: '#fff' }}></Image>
 					<Text style={{ fontSize: 15, color: '#fff', fontWeight: 'bold', marginLeft: 15 }}>Đăng Xuất</Text>
@@ -127,8 +128,8 @@ const Setting = ({ navigation }) => {
 		);
 	}
 
-    function setting () {
-        return (
+	function setting() {
+		return (
 			<ScrollView style={{ height: '100%', backgroundColor: COLORS.black }} showsVerticalScrollIndicator={false}>
 				<View style={{ height: 120, backgroundColor: COLORS.black }}></View>
 				<View style={{ height: 8, backgroundColor: '#009688' }}></View>
@@ -138,7 +139,7 @@ const Setting = ({ navigation }) => {
 				</View>
 			</ScrollView>
 		);
-    }
+	}
 
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: '#009688' }}>

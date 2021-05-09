@@ -18,7 +18,7 @@ import { AirbnbRating } from 'react-native-ratings';
 import global from '../../constants/global';
 import HTML from 'react-native-render-html';
 
-import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
+import { COLORS, SIZES, FONTS, icons } from '../../constants';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -281,10 +281,10 @@ const BookDetail = ({ route, navigation }) => {
 						<View
 							style={{
 								width: '100%',
-								maxHeight: 260,
+								height: 260,
 								borderRadius: 15,
 								alignItems: 'center',
-								backgroundColor: 'blue',
+								backgroundColor: 'rgb(0, 0, 0)',
 							}}
 						>
 							<View
@@ -323,10 +323,10 @@ const BookDetail = ({ route, navigation }) => {
 												textAlign: 'center',
 											}}
 										>
-											Related Books
+											Sách liên quan
 										</Text>
 									</TouchableOpacity>
-									<View style={{ flex: 7.5 / 10, margin: 10, alignItems: 'center' }}>
+									<View style={{ flex: 7.5 / 10, margin: 5, alignItems: 'center' }}>
 										<FlatList
 											data={relatedBooks}
 											renderItem={(item) => <ItemRelatedBooks item={item} />}
@@ -498,7 +498,7 @@ const BookDetail = ({ route, navigation }) => {
 													textAlign: 'center',
 												}}
 											>
-												Comments
+												Bình luận
 											</Text>
 										</TouchableOpacity>
 									</View>
@@ -528,7 +528,7 @@ const BookDetail = ({ route, navigation }) => {
 												margin: 10,
 												fontSize: 16,
 											}}
-											placeholder="Leave a comment"
+											placeholder="Để lại bình luận ..."
 											onChangeText={(text) => setCommentText(text)}
 											value={commentText}
 										></TextInput>
@@ -582,7 +582,7 @@ const BookDetail = ({ route, navigation }) => {
 							>
 								<AirbnbRating
 									count={5}
-									reviews={['Terrible', 'Bad', 'Okay', 'Good', 'Great']}
+									reviews={['Quá tệ', 'tệ', 'Được', 'Tốt', 'Tuyệt quá']}
 									defaultRating={5}
 									size={30}
 									onFinishRating={setValueRating}
@@ -616,7 +616,7 @@ const BookDetail = ({ route, navigation }) => {
 												fontWeight: 'bold',
 											}}
 										>
-											Cancel
+											Huỷ bỏ
 										</Text>
 									</TouchableOpacity>
 									<TouchableOpacity
@@ -714,7 +714,7 @@ const BookDetail = ({ route, navigation }) => {
 					</TouchableOpacity>
 
 					<View style={{ flex: 1, height: 55, alignItems: 'center', justifyContent: 'center' }}>
-						<Text style={{ ...FONTS.h2, color: '#000' }}>Book Detail</Text>
+						<Text style={{ ...FONTS.h2, color: '#000' }}>Thông tin sách</Text>
 					</View>
 
 					<TouchableOpacity onPress={() => console.log('Bookmark')}>
@@ -777,7 +777,7 @@ const BookDetail = ({ route, navigation }) => {
 								}}
 							/>
 						</View>
-						<Text style={{ ...FONTS.body4, color: COLORS.white }}>Rating</Text>
+						<Text style={{ ...FONTS.body4, color: COLORS.white }}>Đánh giá</Text>
 					</TouchableOpacity>
 					{Rating()}
 
@@ -786,7 +786,7 @@ const BookDetail = ({ route, navigation }) => {
 					{/* Pages */}
 					<View style={{ flex: 1, paddingHorizontal: SIZES.radius, alignItems: 'center' }}>
 						<Text style={{ ...FONTS.h3, color: COLORS.white }}>{books.total_rate}</Text>
-						<Text style={{ ...FONTS.body4, color: COLORS.white }}>Number rate</Text>
+						<Text style={{ ...FONTS.body4, color: COLORS.white }}>Lượt đánh giá</Text>
 					</View>
 
 					<LineDivider />
@@ -794,7 +794,7 @@ const BookDetail = ({ route, navigation }) => {
 					{/* Language */}
 					<View style={{ flex: 1, alignItems: 'center' }}>
 						<Text style={{ ...FONTS.h3, color: COLORS.white }}>{books.book_views}</Text>
-						<Text style={{ ...FONTS.body4, color: COLORS.white }}>View</Text>
+						<Text style={{ ...FONTS.body4, color: COLORS.white }}>Lượt xem</Text>
 					</View>
 				</View>
 			</View>
@@ -906,7 +906,7 @@ const BookDetail = ({ route, navigation }) => {
 					}}
 					onPress={() => navigation.navigate('ChapterDetail')}
 				>
-					<Text style={{ ...FONTS.h3, color: COLORS.white }}>Start Reading</Text>
+					<Text style={{ ...FONTS.h3, color: COLORS.white }}>Bắt đầu đọc</Text>
 				</TouchableOpacity>
 				{/* Comments */}
 				<TouchableOpacity
@@ -943,7 +943,7 @@ const BookDetail = ({ route, navigation }) => {
 
 				{/* Description */}
 				<View>
-					<Text style={{ ...FONTS.h3, color: COLORS.white, marginLeft: 10 }}>Description</Text>
+					<Text style={{ ...FONTS.h3, color: COLORS.white, marginLeft: 10 }}>Giới thiệu</Text>
 				</View>
 				<View style={{ flex: 1.8 }}>{renderBookDescription()}</View>
 

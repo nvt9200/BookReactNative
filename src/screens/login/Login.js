@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Text, View, Image, TextInput, ImageBackground, ToastAndroid } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import logo from '../../assets/images/logo.jpg';
+import logo from '../../assets/images/logo.png';
 import background from '../../assets/images/background.png';
 import global from '../../constants/global';
-import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
+import { SIZES } from '../../constants';
 
 const axios = require('axios');
 
 const Login = ({ navigation }) => {
-	const [username, setUserName] = useState('H');
-	const [password, setPassword] = useState('h');
+	const [username, setUserName] = useState('');
+	const [password, setPassword] = useState('');
 
 	const functionLogin = () => {
 		axios
@@ -53,7 +53,16 @@ const Login = ({ navigation }) => {
 	return (
 		<ImageBackground source={background} style={{ height: '100%' }}>
 			<View style={{ backgroundColor: 'rgba(0,0,0,0.3)', height: '100%' }}>
-				<Image source={logo} style={{ alignSelf: 'center', width: '60%', height: '20%', marginTop: 40 }} />
+				<Image
+					source={logo}
+					style={{
+						alignSelf: 'center',
+						width: '70%',
+						resizeMode: 'contain',
+						height: '22%',
+						marginTop: 60,
+					}}
+				/>
 				<Text
 					style={{
 						color: 'white',
@@ -63,7 +72,7 @@ const Login = ({ navigation }) => {
 						marginTop: 20,
 					}}
 				>
-					LOGIN
+					Đăng Nhập
 				</Text>
 
 				<View
@@ -102,7 +111,7 @@ const Login = ({ navigation }) => {
 				>
 					<TextInput
 						style={{ height: 38, width: 250, paddingHorizontal: 12, color: 'white' }}
-						placeholder="Password"
+						placeholder="Mật khẩu"
 						placeholderTextColor="white"
 						secureTextEntry={true}
 						onChangeText={(text) => setPassword(text)}
@@ -122,7 +131,7 @@ const Login = ({ navigation }) => {
 							borderRadius: 25,
 						}}
 					>
-						<Text style={{ color: 'white', fontFamily: 'Colus-Regular', fontSize: 18 }}>Login</Text>
+						<Text style={{ color: 'white', fontFamily: 'Colus-Regular', fontSize: 18 }}>ĐĂNG NHẬP</Text>
 					</View>
 				</TouchableOpacity>
 				<View
@@ -142,7 +151,7 @@ const Login = ({ navigation }) => {
 								color: 'white',
 							}}
 						>
-							Register
+							Đăng kí
 						</Text>
 					</TouchableOpacity>
 				</View>

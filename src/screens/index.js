@@ -8,6 +8,5 @@ import ListBook from './categories/ListBook';
 import Login from './login/Login';
 import ChapterDetail from './chapters/ChapterDetail';
 import Register from './login/Register';
-import ReadBook from './chapters/ReadBook';
 
-export { Home, BookDetail, Category, Search, Setting, Profile, ListBook, Login, ChapterDetail, Register, ReadBook };
+export { Home, BookDetail, Category, Search, Setting, Profile, ListBook, Login, ChapterDetail, Register };

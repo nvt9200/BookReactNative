@@ -114,7 +114,7 @@ const ChapterDetail = ({ navigation }) => {
 					width: '100%',
 					height: '100%',
 					backgroundColor: 'rgba(33, 52, 50,0.95)',
-					justifyContent: 'center',
+					justifyContent: 'space-between',
 					alignItems: 'center',
 					borderTopLeftRadius: 20,
 					borderTopRightRadius: 20,
@@ -123,7 +123,7 @@ const ChapterDetail = ({ navigation }) => {
 				<TouchableOpacity
 					style={{
 						marginLeft: 20,
-						width: 40,
+						width: 35,
 						height: 45,
 						justifyContent: 'center',
 					}}
@@ -140,10 +140,8 @@ const ChapterDetail = ({ navigation }) => {
 					/>
 				</TouchableOpacity>
 
-				<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-					<Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold', fontSize: 20 }}>
-						{Book[0].book_title}
-					</Text>
+				<View style={{ flex: 1 }}>
+					<Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>{Book[0].book_title}</Text>
 				</View>
 			</View>
 		);
@@ -644,10 +642,10 @@ const ChapterDetail = ({ navigation }) => {
 	function modalChapterList() {
 		return (
 			<Modal
+				isVisible={isModalChapter}
 				animationIn="slideInRight"
 				animationOut="slideOutRight"
 				transparent={true}
-				isVisible={isModalChapter}
 				customBackdrop={
 					<TouchableWithoutFeedback onPress={toggleModalChapter} style={{ flex: 1, width: '100%' }}>
 						<View style={{ flex: 1, width: '100%' }}></View>

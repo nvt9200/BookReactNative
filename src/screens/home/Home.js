@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, Image, SafeAreaView, FlatList } from 'react-native';
 import global from '../../constants/global';
-import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
+import { COLORS, SIZES, FONTS, icons } from '../../constants';
 
 const LineDivider = () => {
 	return (
@@ -31,8 +31,7 @@ const Home = ({ navigation }) => {
 			.catch(function (err) {
 				console.log(err);
 			});
-	}, []); 
-	
+	}, []);
 
 	function renderHeader() {
 		return (
@@ -83,7 +82,7 @@ const Home = ({ navigation }) => {
 				{/* Greetings */}
 				<View style={{ flex: 1, marginLeft: 15 }}>
 					<View style={{ marginRight: SIZES.padding }}>
-						<Text style={{ ...FONTS.h3, color: COLORS.white }}>Hello</Text>
+						<Text style={{ ...FONTS.h3, color: COLORS.white }}>Xin chào</Text>
 						<Text style={{ ...FONTS.h2, color: COLORS.white }}>{global.userInfo.name}</Text>
 					</View>
 				</View>
@@ -261,7 +260,7 @@ const Home = ({ navigation }) => {
 		return (
 			<View>
 				<View style={{ paddingHorizontal: SIZES.padding, flexDirection: 'row' }}>
-					<Text style={{ ...FONTS.h2, color: COLORS.white, marginTop: 10 }}>Feature Book</Text>
+					<Text style={{ ...FONTS.h2, color: COLORS.white, marginTop: 10 }}>Sách nổi bật</Text>
 				</View>
 				<View style={{ marginTop: 10, marginBottom: 25 }}>
 					<FlatList
@@ -276,7 +275,7 @@ const Home = ({ navigation }) => {
 				<View
 					style={{ paddingHorizontal: SIZES.padding, flexDirection: 'row', justifyContent: 'space-between' }}
 				>
-					<Text style={{ ...FONTS.h2, color: COLORS.white }}>Popular Book</Text>
+					<Text style={{ ...FONTS.h2, color: COLORS.white }}>Sách phổ biến</Text>
 				</View>
 				<View style={{ marginTop: 10, marginBottom: 25 }}>
 					<FlatList
@@ -289,7 +288,7 @@ const Home = ({ navigation }) => {
 					/>
 				</View>
 				<View style={{ marginTop: 10, marginBottom: 10 }}>
-					<Text style={{ ...FONTS.h1, color: COLORS.white, marginLeft: 20 }}>Latest Book</Text>
+					<Text style={{ ...FONTS.h1, color: COLORS.white, marginLeft: 20 }}>Sách mới nhất</Text>
 				</View>
 			</View>
 		);
@@ -297,9 +296,7 @@ const Home = ({ navigation }) => {
 
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: COLORS.black }}>
-			<View style={{ height: 110 }}>
-				{renderHeader()}
-			</View>
+			<View style={{ height: 110 }}>{renderHeader()}</View>
 
 			<FlatList
 				ListHeaderComponent={headerList}

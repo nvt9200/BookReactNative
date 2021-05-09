@@ -3,7 +3,7 @@ import { Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, TextInpu
 import * as ImagePicker from 'expo-image-picker';
 import global from '../../constants/global';
 
-import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
+import { COLORS, icons } from '../../constants';
 
 const axios = require('axios');
 
@@ -28,7 +28,6 @@ const Profile = ({ navigation }) => {
 	};
 
 	const uploadPhoto = () => {
-		
 		var link =
 			'http://myebookapp.000webhostapp.com//user_profile_upload_image_api.php?id=' +
 			global.userInfo.user_id +
@@ -226,7 +225,7 @@ const Profile = ({ navigation }) => {
 									fontWeight: 'bold',
 								}}
 							>
-								Password
+								Mật khẩu
 							</Text>
 							<TextInput
 								style={{
@@ -268,7 +267,7 @@ const Profile = ({ navigation }) => {
 									fontWeight: 'bold',
 								}}
 							>
-								Name
+								Tên
 							</Text>
 							<TextInput
 								style={{
@@ -310,7 +309,7 @@ const Profile = ({ navigation }) => {
 									fontWeight: 'bold',
 								}}
 							>
-								Phone
+								Số điện thoại
 							</Text>
 							<TextInput
 								style={{
