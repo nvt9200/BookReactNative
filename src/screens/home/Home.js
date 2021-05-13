@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Image, SafeAreaView, FlatList } from 'react-native';
+import { Text, View, TouchableOpacity, Image, SafeAreaView, FlatList, RefreshControl } from 'react-native';
 import global from '../../constants/global';
 import { COLORS, SIZES, FONTS, icons } from '../../constants';
 
@@ -11,10 +11,15 @@ const LineDivider = () => {
 	);
 };
 
+const wait = (timeout) => {
+	return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
 const Home = ({ navigation }) => {
 	const [featureBooks, setFeatureBooks] = useState([]);
 	const [latestBooks, setLatestBooks] = useState([]);
 	const [popularBooks, setPopularBooks] = useState([]);
+	const [refreshing, setRefreshing] = React.useState(false);
 
 	const axios = require('axios');
 
@@ -31,6 +36,11 @@ const Home = ({ navigation }) => {
 			.catch(function (err) {
 				console.log(err);
 			});
+	}, [global.userInfo.user_image]);
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
 	}, []);
 
 	function renderHeader() {
@@ -304,6 +314,7 @@ const Home = ({ navigation }) => {
 				renderItem={(item) => <RenderLateBook item={item} />}
 				keyExtractor={(item) => item.id}
 				showsVerticalScrollIndicator={false}
+				refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 			/>
 		</SafeAreaView>
 	);

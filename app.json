@@ -4,9 +4,9 @@
     "slug": "Book",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/logo.png",
+    "icon": "./src/assets/logo-book.png",
     "splash": {
-      "image": "./src/assets/logo.png",
+      "image": "./src/assets/logo-book.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,17 +17,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.myebookapp.myebookapp"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/logo.png",
+        "foregroundImage": "./src/assets/logo-book.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.myebookapp.myebookapp"
     },
     "web": {
-      "favicon": "./src/assets/logo.png"
+      "favicon": "./src/assets/logo-book.png"
     }
   }
 }

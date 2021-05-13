@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, SafeAreaView, Image, TouchableOpacity, TextInput, ScrollView, FlatList } from 'react-native';
+import {
+	Text,
+	View,
+	SafeAreaView,
+	Image,
+	TouchableOpacity,
+	TextInput,
+	ScrollView,
+	FlatList,
+	RefreshControl,
+} from 'react-native';
 
 import { SearchBar } from 'react-native-elements';
 
@@ -15,10 +25,15 @@ const LineDivider = () => {
 	);
 };
 
+const wait = (timeout) => {
+	return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
 const Search = ({ navigation }) => {
 	const [search, setSearch] = useState('');
 	const [booksData, setBooksData] = useState([]);
 	const [filteredBookData, setFilteredBookData] = useState([]);
+	const [refreshing, setRefreshing] = React.useState(false);
 	const axios = require('axios');
 
 	useEffect(() => {
@@ -32,6 +47,11 @@ const Search = ({ navigation }) => {
 			.catch(function (err) {
 				console.log(err);
 			});
+	}, []);
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
 	}, []);
 
 	function renderHeader() {
@@ -240,6 +260,7 @@ const Search = ({ navigation }) => {
 					renderItem={(item) => <RenderLateBook item={item} />}
 					keyExtractor={(item) => item.id}
 					showsVerticalScrollIndicator={false}
+					refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 				/>
 			</View>
 		</SafeAreaView>

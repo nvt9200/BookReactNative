@@ -1,11 +1,21 @@
 import React from 'react';
-import { Text, View, Image, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, Image, SafeAreaView, ScrollView, RefreshControl } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import global from '../../constants/global';
 import { COLORS, icons } from '../../constants';
 
+const wait = (timeout) => {
+	return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
 const Setting = ({ navigation }) => {
-	console.log(global.userInfo);
+	const [refreshing, setRefreshing] = React.useState(false);
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(2000).then(() => setRefreshing(false));
+	}, []);
+
 	function settingHeader() {
 		return (
 			<View style={{ alignItems: 'center', marginTop: 10 }}>
@@ -130,7 +140,11 @@ const Setting = ({ navigation }) => {
 
 	function setting() {
 		return (
-			<ScrollView style={{ height: '100%', backgroundColor: COLORS.black }} showsVerticalScrollIndicator={false}>
+			<ScrollView
+				style={{ height: '100%', backgroundColor: COLORS.black }}
+				showsVerticalScrollIndicator={false}
+				refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+			>
 				<View style={{ height: 120, backgroundColor: COLORS.black }}></View>
 				<View style={{ height: 8, backgroundColor: '#009688' }}></View>
 				<View style={{ backgroundColor: COLORS.black }}>

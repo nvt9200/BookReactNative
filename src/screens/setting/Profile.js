@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, TextInput, ToastAndroid } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import global from '../../constants/global';
 
@@ -10,6 +10,9 @@ const axios = require('axios');
 const Profile = ({ navigation }) => {
 	const [image, setImage] = useState(global.userInfo.user_image);
 	const [data, setData] = useState(null);
+	const [password, setPassword] = useState(global.userInfo.password);
+	const [name, setName] = useState(global.userInfo.name);
+	const [phone, setPhone] = useState(global.userInfo.phone);
 
 	const pickImage = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
@@ -19,15 +22,15 @@ const Profile = ({ navigation }) => {
 			quality: 1,
 		});
 
-		console.log(result);
-
 		if (!result.cancelled) {
 			setImage(result.uri);
 			setData(result);
+			global.userInfo.user_image = image;
+			console.log('image là : ' + global.userInfo.user_image);
 		}
 	};
-
 	const uploadPhoto = () => {
+		global.userInfo.user_image = image;
 		var link =
 			'http://myebookapp.000webhostapp.com//user_profile_upload_image_api.php?id=' +
 			global.userInfo.user_id +
@@ -38,8 +41,34 @@ const Profile = ({ navigation }) => {
 			.then(function (response) {
 				console.log(response);
 				if (response.EBOOK_APP[0].success == 1) {
-					global.userInfo.user_image = image;
 				}
+			})
+			.catch(function (err) {
+				console.log(err);
+			});
+	};
+
+	const uploadProfile = () => {
+		global.userInfo.user_image = image;
+		global.userInfo.name = name;
+		global.userInfo.phone = phone;
+		global.userInfo.password = password;
+		var link =
+			'http://myebookapp.000webhostapp.com//user_profile_update_api.php?user_id=' +
+			global.userInfo.user_id +
+			'&name=' +
+			global.userInfo.name +
+			'&email=' +
+			global.userInfo.email +
+			'&password=' +
+			global.userInfo.password +
+			'&phone=' +
+			global.userInfo.phone;
+		axios
+			.get(link)
+			.then(function (response) {
+				console.log(response);
+				ToastAndroid.show('Change profile success!!!', ToastAndroid.LONG);
 			})
 			.catch(function (err) {
 				console.log(err);
@@ -124,7 +153,7 @@ const Profile = ({ navigation }) => {
 										alignItems: 'center',
 									}}
 									activeOpacity={0.7}
-									onPress={uploadPhoto()}
+									onPress={() => uploadPhoto()}
 								>
 									<Text
 										style={{
@@ -244,9 +273,9 @@ const Profile = ({ navigation }) => {
 								}}
 								placeholder="Password"
 								placeholderTextColor="rgb(255, 255, 255)"
-							>
-								{global.userInfo.password}
-							</TextInput>
+								onChangeText={(text) => setPassword(text)}
+								value={password}
+							/>
 						</View>
 						<View
 							style={{
@@ -286,9 +315,9 @@ const Profile = ({ navigation }) => {
 								}}
 								placeholder="Name"
 								placeholderTextColor="rgb(255, 255, 255)"
-							>
-								{global.userInfo.name}
-							</TextInput>
+								onChangeText={(text) => setName(text)}
+								value={name}
+							/>
 						</View>
 						<View
 							style={{
@@ -328,9 +357,9 @@ const Profile = ({ navigation }) => {
 								}}
 								placeholder="Phone"
 								placeholderTextColor="rgb(255, 255, 255)"
-							>
-								{global.userInfo.phone}
-							</TextInput>
+								onChangeText={(text) => setPhone(text)}
+								value={phone}
+							/>
 						</View>
 						<TouchableOpacity
 							style={{
@@ -346,6 +375,9 @@ const Profile = ({ navigation }) => {
 								elevation: 15,
 								marginTop: 50,
 								marginBottom: 40,
+							}}
+							onPress={() => {
+								uploadProfile(), navigation.goBack();
 							}}
 						>
 							<Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>Cập Nhật</Text>
