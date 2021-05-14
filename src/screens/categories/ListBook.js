@@ -9,14 +9,20 @@ import {
 	ScrollView,
 	FlatList,
 	Animated,
+	RefreshControl,
 } from 'react-native';
 
 import { COLORS, SIZES, FONTS, icons } from '../../constants';
+
+const wait = (timeout) => {
+	return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 const ListBook = ({ route, navigation }) => {
 	const [books, setBooks] = useState([]);
 	const [search, setSearch] = useState('');
 	const [filteredBookData, setFilteredBookData] = useState([]);
+	const [refreshing, setRefreshing] = React.useState(false);
 	const { categoryData } = route.params;
 	const axios = require('axios');
 
@@ -32,6 +38,11 @@ const ListBook = ({ route, navigation }) => {
 			.catch(function (err) {
 				console.log(err);
 			});
+	}, []);
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(1000).then(() => setRefreshing(false));
 	}, []);
 
 	function categoriesName(categoryData) {
@@ -215,6 +226,7 @@ const ListBook = ({ route, navigation }) => {
 					renderItem={(item) => <RenderCategoryData item={item} />}
 					keyExtractor={(item) => item.id}
 					showsVerticalScrollIndicator={false}
+					refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 				/>
 			</View>
 

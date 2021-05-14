@@ -1,13 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, ScrollView, SafeAreaView, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import {
+	Text,
+	View,
+	Image,
+	ScrollView,
+	SafeAreaView,
+	TouchableOpacity,
+	FlatList,
+	Dimensions,
+	RefreshControl,
+} from 'react-native';
 
 import { COLORS, SIZES, FONTS } from '../../constants';
 import global from '../../constants/global';
+
+const wait = (timeout) => {
+	return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 const Category = ({ navigation }) => {
 	const axios = require('axios');
 	const [categories, setCategories] = useState([]);
 	const { width } = Dimensions.get('window');
+	const [refreshing, setRefreshing] = React.useState(false);
 
 	useEffect(() => {
 		axios
@@ -27,6 +42,12 @@ const Category = ({ navigation }) => {
 				console.log(err);
 			});
 	}, []);
+
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		wait(1000).then(() => setRefreshing(false));
+	}, []);
+
 	function CategoryShow({ item }) {
 		return (
 			<TouchableOpacity
@@ -91,6 +112,7 @@ const Category = ({ navigation }) => {
 						keyExtractor={(item) => item.cid}
 						contentContainerStyle={{ flexDirection: 'column' }}
 						numColumns={2}
+						refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 					/>
 				</View>
 			</View>
